@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">KIM Prototype App</string>
+
+    <string name="Welcome">Welcome!</string>
+    <string name="action_settings">Settings</string>
+</resources>
