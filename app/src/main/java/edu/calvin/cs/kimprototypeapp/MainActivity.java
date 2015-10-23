@@ -1,16 +1,37 @@
 package edu.calvin.cs.kimprototypeapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+/***
+ * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
+ * Need to know: read in username & password
+ */
 public class MainActivity extends Activity {
+
+    //create loginButton
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loginButton=(Button) findViewById(R.id.loginbutton); //asign login button
+
+        //create onClick listener for login button bringing to HomeActivity
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //create and start new Intent
+                Intent home = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(home);
+            }
+        });
     }
 
     @Override
