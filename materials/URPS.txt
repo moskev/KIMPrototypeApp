@@ -1,0 +1,11 @@
+Our KIM App should be available and accessible to anyone who has an Android device with the app
+downloaded on it, has an internet connection, and knows a username and password for the app.
+Information about specific stocks will be updated automatically through the internet so that
+information should be quite accurate and up-to-date. The specific stocks shown and the weekly
+stock pitch will be updated by KIM leadership/sector heads via administrator accounts, so that
+information will be as accurate and up-to-date as the leadership makes it (ideally they will
+update it weekly). It should work well when all 50 members of KIM are using it simultaneously
+and it should work on a variety of screen sizes and devices. It should look nice and be intuitive
+to use. Users should be able to easily find and sort information about KIM stocks and should be
+able to find and read training materials and that week’s stock pitch. It should crash as little
+as possible and run as quickly as possible without using an extensive amount of resources.
