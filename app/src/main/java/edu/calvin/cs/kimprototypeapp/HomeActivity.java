@@ -2,14 +2,17 @@ package edu.calvin.cs.kimprototypeapp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,8 +48,8 @@ public class HomeActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
@@ -60,6 +63,8 @@ public class HomeActivity extends Activity {
  */
 public static class PlaceholderFragment extends Fragment {
 
+
+
     ArrayAdapter<String> mStockAdapter; //create the ArrayAdapter, responsible for populating ListView
 
     public PlaceholderFragment() {
@@ -71,7 +76,7 @@ public static class PlaceholderFragment extends Fragment {
 
         // Create some dummy data for the ListView.  Here's a sample weekly forecast
         String[] data = {
-                "CHE - Servies Sector", "THOR", "CNS", "LBY", "EXLS", "ANIK", "MOV", "MTX", "CJES", "KWR", "ALG", "EGBN", "EFII", "BEKA'S STOCK!!!"
+                "CHE - Servies Sector", "THOR", "CNS", "LBY", "EXLS", "ANIK", "MOV", "MTX", "CJES", "KWR", "ALG", "EGBN", "EFII", "BEKA'S STOCK!!!", "Chicken Stock", "Moses' Super Stock"
         };
 
         //takes array of data and stores it as a list
@@ -90,6 +95,19 @@ public static class PlaceholderFragment extends Fragment {
         // Get a reference to the ListView, and attach this adapter to it.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_stocks);
         listView.setAdapter(mStockAdapter); //supply list item layouts to list view based on the forecast data
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String stockName = mStockAdapter.getItem(position);
+                //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, stockName);
+                startActivity(intent);
+
+
+            }
+        });
 
         return rootView;
     }
