@@ -76,7 +76,7 @@ public static class PlaceholderFragment extends Fragment {
 
         // Create some dummy data for the ListView.  Here's a sample weekly forecast
         String[] data = {
-                "CHE - Servies Sector", "THOR", "CNS", "LBY", "EXLS", "ANIK", "MOV", "MTX", "CJES", "KWR", "ALG", "EGBN", "EFII", "BEKA'S STOCK!!!", "Andrew's stock"
+                "CHE - Servies Sector", "THOR", "CNS", "LBY", "EXLS", "ANIK", "MOV", "MTX", "CJES", "KWR", "ALG", "EGBN", "EFII", "BEKA'S STOCK!!!", "Andrew's stock", "Moses' Super Stock"
         };
 
         //takes array of data and stores it as a list
