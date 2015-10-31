@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 /***
  * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
@@ -16,12 +17,15 @@ public class MainActivity extends Activity {
 
     //create loginButton
     private Button loginButton;
+    private ImageView kimLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginButton=(Button) findViewById(R.id.loginbutton); //asign login button
+       kimLogo = (ImageView) findViewById(R.id.kimLogo);
+        kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
         //create onClick listener for login button bringing to HomeActivity
         loginButton.setOnClickListener(new View.OnClickListener() {
