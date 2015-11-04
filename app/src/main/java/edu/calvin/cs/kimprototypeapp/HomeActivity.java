@@ -101,6 +101,7 @@ public static class PlaceholderFragment extends Fragment {
                 String stockName = mStockAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, stockName);
+               // intent.putExtra(Intent.EXTRA_TEXT, stockIsUp);
                 startActivity(intent);
 
 
