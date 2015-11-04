@@ -82,7 +82,7 @@ public static class PlaceholderFragment extends Fragment {
 
         //Adapter takes data from the source and uses it to populate ListView
         mStockAdapter = new ArrayAdapter<String>(
-                getActivity(), //fragment's parent activity
+                getActivity(), //fragment's parent activity xx
                 R.layout.list_item_stock, //name of layout ID
                 R.id.list_item_stock_textview, //ID of textview in that layout to populate
                 stocks //the data to populate it with
