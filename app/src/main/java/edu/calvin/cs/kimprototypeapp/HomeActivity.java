@@ -63,8 +63,9 @@ public class HomeActivity extends Activity {
  */
 public static class PlaceholderFragment extends Fragment {
 
-    ArrayAdapter<String> mStockAdapter; //create the ArrayAdapter, responsible for populating ListView
+    ArrayAdapter<String> mStockAdapter; //create the ArrayAdapter, responsible for filling in list view ListView
 
+  //default construction
     public PlaceholderFragment() {
     }
 

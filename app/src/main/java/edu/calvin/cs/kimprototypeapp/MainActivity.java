@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 /***
  * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
- * Need to know: read in username & password
  */
 public class MainActivity extends Activity {
 
@@ -25,8 +24,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loginButton=(Button) findViewById(R.id.loginbutton); //asign login button
-       kimLogo = (ImageView) findViewById(R.id.kimLogo);
+
+        //initialize button and Kim Logo
+        loginButton=(Button) findViewById(R.id.loginbutton);
+        kimLogo = (ImageView) findViewById(R.id.kimLogo);
         kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
         //create onClick listener for login button bringing to HomeActivity
@@ -60,6 +61,6 @@ public class MainActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item); //added git 
+        return super.onOptionsItemSelected(item); //added git
     }
 }

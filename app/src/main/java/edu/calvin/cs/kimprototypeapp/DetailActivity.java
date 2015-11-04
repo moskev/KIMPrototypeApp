@@ -63,10 +63,11 @@ public class DetailActivity extends Activity {
 
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-            // The detail Activity called via intent.  Inspect the intent for forecast data.
+            // The detail Activity called via intent.  Get the name of the stock from the intent.
             Intent intent = getActivity().getIntent();
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
-                //adds stock name to intent
+
+                //gets stock name from the intent and populate the textview
                 String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
                 ((TextView) rootView.findViewById(R.id.stock_name))
                         .setText(forecastStr);
