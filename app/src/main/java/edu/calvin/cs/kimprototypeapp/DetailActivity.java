@@ -53,6 +53,9 @@ public class DetailActivity extends Activity {
      */
     public static class DetailFragment extends Fragment {
 
+
+
+        
         public DetailFragment() {
         }
 
