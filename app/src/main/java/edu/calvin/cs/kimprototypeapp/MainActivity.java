@@ -17,6 +17,8 @@ public class MainActivity extends Activity {
 
     //create loginButton
     private Button loginButton;
+
+    //get ImageView to add kimLogo in
     private ImageView kimLogo;
 
     @Override
@@ -58,6 +60,6 @@ public class MainActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item); //added git 
     }
 }
