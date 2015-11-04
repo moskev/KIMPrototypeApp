@@ -74,7 +74,7 @@ public static class PlaceholderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Create some dummy data for the ListView.  Here's a sample weekly forecast
+        // Create dummy stock data for ListView
         String[] data = {
                 "CHE - Servies Sector", "THOR", "CNS", "LBY", "EXLS", "ANIK", "MOV", "MTX", "CJES", "KWR", "ALG", "EGBN", "EFII", "BEKA'S Awesome STOCK!!!", "Chicken Stock", "Moses' Super Stock"
         };
@@ -84,7 +84,7 @@ public static class PlaceholderFragment extends Fragment {
 
         //Adapter takes data from the source and uses it to populate ListView
         mStockAdapter = new ArrayAdapter<String>(
-                getActivity(), //fragment's parent activity
+                getActivity(), //fragment's parent activity xx
                 R.layout.list_item_stock, //name of layout ID
                 R.id.list_item_stock_textview, //ID of textview in that layout to populate
                 stocks //the data to populate it with
@@ -103,6 +103,7 @@ public static class PlaceholderFragment extends Fragment {
                 String stockName = mStockAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, stockName);
+               // intent.putExtra(Intent.EXTRA_TEXT, stockIsUp);
                 startActivity(intent);
 
 
