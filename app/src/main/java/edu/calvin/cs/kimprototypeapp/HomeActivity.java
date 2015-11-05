@@ -48,13 +48,18 @@ public class HomeActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        } else {
+            startActivity(new Intent(this, TrainingActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item); //added git
     }
+
 
 
 

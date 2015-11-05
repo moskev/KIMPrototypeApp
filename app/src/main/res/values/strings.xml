@@ -2,7 +2,10 @@
     <string name="app_name">KIM Prototype App</string>
 
     <string name="Welcome">Welcome!</string>
+    <string name="action_home">Home</string>
     <string name="action_settings">Settings</string>
+    <string name="action_training">Training Guide</string>
+    <string name="action_stockPitch">Stock Pitch</string>
     <string name="Username">Username</string>
     <string name="Password">Password</string>
     <string name="title_activity_home">HomeActivity</string>
@@ -16,4 +19,5 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_portfolio">PortfolioActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_training">TrainingActivity</string>
 </resources>

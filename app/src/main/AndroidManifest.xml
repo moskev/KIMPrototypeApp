@@ -36,6 +36,10 @@
             android:name=".PortfolioActivity"
             android:label="@string/title_activity_portfolio" >
         </activity>
+        <activity
+            android:name=".TrainingActivity"
+            android:label="@string/title_activity_training" >
+        </activity>
     </application>
 
 </manifest>

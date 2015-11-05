@@ -5,42 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-public class PortfolioActivity extends Activity {
-
-    //create loginButton
-    private Button individualStockButton;
-
-    //get ImageView to add kimLogo in
-    //private ImageView kimLogo;
+public class TrainingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_portfolio);
-        individualStockButton =(Button)  findViewById(R.id.individualStockButton); //assign individual button
-        //kimLogo = (ImageView) findViewById(R.id.kimLogo);
-        //kimLogo.setImageResource(R.mipmap.knight_investment_management);
-
-        //create onClick listener for login button bringing to HomeActivity
-        individualStockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //create and start new Intent
-                Intent home = new Intent(PortfolioActivity.this, HomeActivity.class);
-                startActivity(home);
-            }
-        });
-
+        setContentView(R.layout.activity_training);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_portfolio, menu);
+        getMenuInflater().inflate(R.menu.menu_training, menu);
         return true;
     }
 

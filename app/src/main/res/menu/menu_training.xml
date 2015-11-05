@@ -9,3 +9,4 @@
     <item android:id="@+id/action_stockPitch" android:title="@string/action_stockPitch"
         android:orderInCategory="100" android:showAsAction="never" />
 </menu>
+
