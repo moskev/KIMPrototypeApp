@@ -40,13 +40,17 @@ public class DetailActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        } else {
+            startActivity(new Intent(this, TrainingActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item); //added git
     }
+
 
     /**
      * A placeholder fragment containing a simple view.
