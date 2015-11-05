@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/*
+Detail activity will have information about specific stocks.
+It will be accessible by clicking on a specific stock's name elsewhere in the program.
+ */
 
 public class DetailActivity extends Activity {
 
@@ -32,6 +36,9 @@ public class DetailActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

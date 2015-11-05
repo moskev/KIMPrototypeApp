@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/*
+About activity will have a stock pitch on it.
+It will be accessible through a menu button.
+ */
+
 public class StockPitchActivity extends Activity {
 
     @Override
@@ -21,6 +26,9 @@ public class StockPitchActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
