@@ -14,6 +14,9 @@ package edu.calvin.cs.kimprototypeapp;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
+/*
+This page will probably not be used but we have not deleted it in case we decide to use it.
+ */
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 

@@ -47,6 +47,9 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

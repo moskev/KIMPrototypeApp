@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+/*
+This activity will have information about KIM's portfolio as a whole.
+It will be accessible through the home menu button and the login button.
+ */
+
 public class PortfolioActivity extends Activity {
 
     //create loginButton
@@ -44,6 +49,9 @@ public class PortfolioActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
