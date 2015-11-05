@@ -40,6 +40,14 @@
             android:name=".TrainingActivity"
             android:label="@string/title_activity_training" >
         </activity>
+        <activity
+            android:name=".StockPitchActivity"
+            android:label="@string/title_activity_stock_pitch" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
     </application>
 
 </manifest>

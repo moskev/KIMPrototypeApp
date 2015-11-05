@@ -37,7 +37,7 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -50,14 +50,20 @@ public class HomeActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_home) {
-            startActivity(new Intent(this, HomeActivity.class));
+            startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else {
+        } else if (id == R.id.action_about){
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
+            return true;
+        } else if (id == R.id.action_stockPitch){
+            startActivity(new Intent(this, StockPitchActivity.class));
             return true;
         }
 
-        //return super.onOptionsItemSelected(item); //added git
+        return super.onOptionsItemSelected(item); //added git
     }
 
 
