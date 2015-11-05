@@ -9,41 +9,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-/***
- * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
- * Need to know: read in username & password
- */
-public class MainActivity extends Activity {
+public class PortfolioActivity extends Activity {
 
     //create loginButton
-    private Button loginButton;
+    private Button individualStockButton;
 
     //get ImageView to add kimLogo in
-    private ImageView kimLogo;
+    //private ImageView kimLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        loginButton=(Button) findViewById(R.id.loginbutton); //asign login button
-       kimLogo = (ImageView) findViewById(R.id.kimLogo);
-        kimLogo.setImageResource(R.mipmap.knight_investment_management);
+        setContentView(R.layout.activity_portfolio);
+        individualStockButton =(Button)  findViewById(R.id.individualStockButton); //assign individual button
+        //kimLogo = (ImageView) findViewById(R.id.kimLogo);
+        //kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
         //create onClick listener for login button bringing to HomeActivity
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        individualStockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //create and start new Intent
-                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+                Intent home = new Intent(PortfolioActivity.this, HomeActivity.class);
                 startActivity(home);
             }
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_portfolio, menu);
         return true;
     }
 
@@ -60,6 +57,6 @@ public class MainActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item); //added git 
+        return super.onOptionsItemSelected(item);
     }
 }

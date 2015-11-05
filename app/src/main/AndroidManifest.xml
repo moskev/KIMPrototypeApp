@@ -32,6 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.calvin.cs.kimprototypeapp.MainActivity" />
         </activity>
+        <activity
+            android:name=".PortfolioActivity"
+            android:label="@string/title_activity_portfolio" >
+        </activity>
     </application>
 
 </manifest>

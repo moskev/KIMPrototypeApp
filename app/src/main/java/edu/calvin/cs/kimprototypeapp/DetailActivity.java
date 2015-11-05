@@ -53,6 +53,7 @@ public class DetailActivity extends Activity {
      */
     public static class DetailFragment extends Fragment {
 
+
         public DetailFragment() {
         }
 
@@ -65,6 +66,7 @@ public class DetailActivity extends Activity {
             // The detail Activity called via intent.  Inspect the intent for forecast data.
             Intent intent = getActivity().getIntent();
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+                //adds stock name to intent
                 String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
                 ((TextView) rootView.findViewById(R.id.stock_name))
                         .setText(forecastStr);
