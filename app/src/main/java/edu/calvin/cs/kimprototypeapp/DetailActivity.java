@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/*
+Detail activity will have information about specific stocks.
+It will be accessible by clicking on a specific stock's name elsewhere in the program.
+ */
 
 public class DetailActivity extends Activity {
 
@@ -32,6 +36,9 @@ public class DetailActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -40,13 +47,23 @@ public class DetailActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, PortfolioActivity.class));
+            return true;
+        } else if (id == R.id.action_about){
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        } else if (id == R.id.action_training){
+            startActivity(new Intent(this, TrainingActivity.class));
+            return true;
+        } else if (id == R.id.action_stockPitch){
+            startActivity(new Intent(this, StockPitchActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item); //added git
     }
+
 
     /**
      * A placeholder fragment containing a simple view.
