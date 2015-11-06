@@ -3,12 +3,14 @@ package edu.calvin.cs.kimprototypeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /*
@@ -27,6 +29,10 @@ public class DetailActivity extends Activity {
                     .add(R.id.container, new DetailFragment())
                     .commit();
         }
+
+        //when receive info from database would set arrow accordin to code from database
+        ImageView arrowView = (ImageView) findViewById(R.id.arrowImage);
+        arrowView.setImageResource(R.mipmap.down_arrow);
     }
 
     @Override
@@ -88,6 +94,9 @@ public class DetailActivity extends Activity {
                 ((TextView) rootView.findViewById(R.id.stock_name))
                         .setText(forecastStr);
             }
+
+
+
 
             return rootView;
         }
