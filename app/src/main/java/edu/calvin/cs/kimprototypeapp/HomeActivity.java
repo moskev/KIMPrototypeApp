@@ -64,6 +64,9 @@ public class HomeActivity extends Activity {
         } else if (id == R.id.action_stockPitch){
             startActivity(new Intent(this, StockPitchActivity.class));
             return true;
+        } else if (id == R.id.action_logout){
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item); //added git
