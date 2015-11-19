@@ -3,14 +3,21 @@ package edu.calvin.cs.kimprototypeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+/*
+Detail activity will have information about specific stocks.
+It will be accessible by clicking on a specific stock's name elsewhere in the program.
+ */
 
 public class DetailActivity extends Activity {
 
@@ -23,6 +30,37 @@ public class DetailActivity extends Activity {
                     .add(R.id.container, new DetailFragment())
                     .commit();
         }
+
+
+        Intent intent = getIntent();
+        String stockName = intent.getStringExtra(Intent.EXTRA_TEXT);
+
+        //when receive info from database would set arrow accordin to code from database
+        ImageView arrowView = (ImageView) findViewById(R.id.arrowImage);
+
+       //make sure get stock name correctly
+        Log.i("STOCK Name:", stockName);
+
+        //does stock contain correct variable to make arrow green?
+        boolean value = stockName.contains("BEKA");
+        String truthValue;
+        if (value == true){
+            truthValue = "true";
+        }
+        else {
+            truthValue = "false";
+        }
+        Log.i("TRUE/FALSE", truthValue);
+
+
+        //if stock contains correct variable to make arrow green, make it green
+        if (value) {
+            arrowView.setImageResource(R.mipmap.up_arrow);
+        }
+        //otherwise, make it red
+        else {
+            arrowView.setImageResource(R.mipmap.down_arrow);
+        }
     }
 
     @Override
@@ -32,6 +70,9 @@ public class DetailActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -40,13 +81,23 @@ public class DetailActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, PortfolioActivity.class));
+            return true;
+        } else if (id == R.id.action_about){
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        } else if (id == R.id.action_training){
+            startActivity(new Intent(this, TrainingActivity.class));
+            return true;
+        } else if (id == R.id.action_stockPitch){
+            startActivity(new Intent(this, StockPitchActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item); //added git
     }
+
 
     /**
      * A placeholder fragment containing a simple view.
@@ -71,6 +122,9 @@ public class DetailActivity extends Activity {
                 ((TextView) rootView.findViewById(R.id.stock_name))
                         .setText(forecastStr);
             }
+
+
+
 
             return rootView;
         }

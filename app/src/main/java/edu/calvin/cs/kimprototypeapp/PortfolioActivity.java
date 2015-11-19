@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+/*
+This activity will have information about KIM's portfolio as a whole.
+It will be accessible through the home menu button and the login button.
+ */
+
 public class PortfolioActivity extends Activity {
 
     //create loginButton
@@ -44,6 +49,9 @@ public class PortfolioActivity extends Activity {
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -52,11 +60,21 @@ public class PortfolioActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, PortfolioActivity.class));
+            return true;
+        } else if (id == R.id.action_about){
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        } else if (id == R.id.action_training){
+            startActivity(new Intent(this, TrainingActivity.class));
+            return true;
+        } else if (id == R.id.action_stockPitch){
+            startActivity(new Intent(this, StockPitchActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item); //added git
     }
+
 }

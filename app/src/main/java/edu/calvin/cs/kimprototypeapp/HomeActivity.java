@@ -37,10 +37,13 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
+    /*
+    This function opens the appropriate activity when a menu button is pushed.
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -48,13 +51,24 @@ public class HomeActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, PortfolioActivity.class));
+            return true;
+        } else if (id == R.id.action_about){
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        } else if (id == R.id.action_training){
+            startActivity(new Intent(this, TrainingActivity.class));
+            return true;
+        } else if (id == R.id.action_stockPitch){
+            startActivity(new Intent(this, StockPitchActivity.class));
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item); //added git
     }
+
 
 
 
@@ -76,7 +90,7 @@ public static class PlaceholderFragment extends Fragment {
 
         // Create dummy stock data for ListView
         String[] data = {
-                "CHE - Servies Sector", "THOR", "CNS", "LBY", "EXLS", "ANIK", "MOV", "MTX", "CJES", "KWR", "ALG", "EGBN", "EFII", "BEKA'S Awesome STOCK!!!", "Chicken Stock", "Moses' Super Stock"
+                "TSM", "EG", "MIOM", "C9", "BEKA'S Awesome STOCK!!!",  "Chicken Stock", "LIQU", "EOG", "TLU", "M2K", "KEN", "PPMD", "LFN", "Moses' Super Stock", "MNGO", "AMSA", "HBOX", "ARMD", "SFAT"
         };
 
         //takes array of data and stores it as a list
