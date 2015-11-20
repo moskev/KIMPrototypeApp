@@ -75,6 +75,7 @@ public class DetailActivity extends Activity {
             BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
 
         } catch (Exception e){};*/
+        //Moses helped. #pairProgramming
         try {
             Stock stock = YahooFinance.get(stockName);
             BigDecimal price = stock.getQuote(true).getPrice();
