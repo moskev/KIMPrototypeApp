@@ -14,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
+
 /*
 Detail activity will have information about specific stocks.
 It will be accessible by clicking on a specific stock's name elsewhere in the program.
@@ -61,6 +66,20 @@ public class DetailActivity extends Activity {
         else {
             arrowView.setImageResource(R.mipmap.down_arrow);
         }
+        /*try {
+            Stock stock = YahooFinance.get(stockName);
+
+            BigDecimal price = stock.getQuote().getPrice();
+            BigDecimal change = stock.getQuote().getChangeInPercent();
+            BigDecimal peg = stock.getStats().getPeg();
+            BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
+
+        } catch (Exception e){};*/
+        try {
+            Stock stock = YahooFinance.get(stockName);
+            BigDecimal price = stock.getQuote(true).getPrice();
+            System.out.println(price);
+        } catch (Exception e) {}
     }
 
     @Override
