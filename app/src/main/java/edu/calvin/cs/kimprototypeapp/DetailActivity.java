@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,9 +31,36 @@ public class DetailActivity extends Activity {
                     .commit();
         }
 
+
+        Intent intent = getIntent();
+        String stockName = intent.getStringExtra(Intent.EXTRA_TEXT);
+
         //when receive info from database would set arrow accordin to code from database
         ImageView arrowView = (ImageView) findViewById(R.id.arrowImage);
-        arrowView.setImageResource(R.mipmap.down_arrow);
+
+       //make sure get stock name correctly
+        Log.i("STOCK Name:", stockName);
+
+        //does stock contain correct variable to make arrow green?
+        boolean value = stockName.contains("BEKA");
+        String truthValue;
+        if (value == true){
+            truthValue = "true";
+        }
+        else {
+            truthValue = "false";
+        }
+        Log.i("TRUE/FALSE", truthValue);
+
+
+        //if stock contains correct variable to make arrow green, make it green
+        if (value) {
+            arrowView.setImageResource(R.mipmap.up_arrow);
+        }
+        //otherwise, make it red
+        else {
+            arrowView.setImageResource(R.mipmap.down_arrow);
+        }
     }
 
     @Override
@@ -64,6 +92,9 @@ public class DetailActivity extends Activity {
             return true;
         } else if (id == R.id.action_stockPitch){
             startActivity(new Intent(this, StockPitchActivity.class));
+            return true;
+        } else if (id == R.id.action_logout){
+            startActivity(new Intent(this, MainActivity.class));
             return true;
         }
 
