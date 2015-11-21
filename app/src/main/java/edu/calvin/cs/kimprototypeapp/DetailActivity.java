@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,21 +67,62 @@ public class DetailActivity extends Activity {
         else {
             arrowView.setImageResource(R.mipmap.down_arrow);
         }
+        TextView stockText = (TextView) findViewById(R.id.stockText);
+        MyTask myTask1 = new MyTask(stockText);
+        myTask1.execute(stockName);
         /*try {
             Stock stock = YahooFinance.get(stockName);
 
             BigDecimal price = stock.getQuote().getPrice();
+            Log.i("Beka",price.toString());
             BigDecimal change = stock.getQuote().getChangeInPercent();
             BigDecimal peg = stock.getStats().getPeg();
             BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
+            //stock.print();
 
-        } catch (Exception e){};*/
+        } catch (Exception e){
+            Log.i("Andrew:",e.toString());
+        };
         //Moses helped. #pairProgramming
-        try {
+        /*try {
             Stock stock = YahooFinance.get(stockName);
             BigDecimal price = stock.getQuote(true).getPrice();
             System.out.println(price);
-        } catch (Exception e) {}
+        } catch (Exception e) {}*/
+    }
+
+    public class MyTask extends AsyncTask<String, Integer, String> {
+        private TextView myTextview;
+        public MyTask(final TextView textView){
+            this.myTextview = textView;
+
+        }
+
+        @Override
+        protected void onPreExecute(){
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String myString = params[0];
+
+            int i=0;
+            //publishProgress(i);
+
+            return myString;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values){
+
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            myTextview.setText(result);
+            super.onPostExecute(result);
+        }
     }
 
     @Override
