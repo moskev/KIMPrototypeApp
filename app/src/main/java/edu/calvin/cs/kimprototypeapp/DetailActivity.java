@@ -70,6 +70,7 @@ public class DetailActivity extends Activity {
         TextView stockText = (TextView) findViewById(R.id.stockText);
         MyTask myTask1 = new MyTask(stockText);
         myTask1.execute(stockName);
+        //needed a change to push
         /*try {
             Stock stock = YahooFinance.get(stockName);
 
