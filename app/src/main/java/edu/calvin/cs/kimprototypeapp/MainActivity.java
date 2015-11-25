@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,10 +27,12 @@ import java.io.InputStream;
  * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
  * Need to know: read in username & password
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener{
+    private Boolean isValidUsername = Boolean.FALSE;
 
     //create loginButton
     private Button loginButton;
+    private TextView usernameField;
 
     //get ImageView to add kimLogo in
     private ImageView kimLogo;
@@ -39,20 +42,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginButton=(Button) findViewById(R.id.loginbutton); //asign login button
+        usernameField=(TextView) findViewById(R.id.editText2); //asign login button
         kimLogo = (ImageView) findViewById(R.id.kimLogo);
         kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
         //create onClick listener for login button bringing to HomeActivity
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginButton.setClickable(false);
-                new LongRunningGetIO().execute();
-                //create and start new Intent
-                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-                startActivity(home);
-            }
-        });
+        loginButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View arg0) {
+        loginButton.setClickable(false);
+        new LongRunningGetIO().execute();
     }
 
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
@@ -97,7 +98,7 @@ public class MainActivity extends Activity {
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://10.0.2.2:9998/monopoly/players";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -121,6 +122,16 @@ public class MainActivity extends Activity {
                 et.setText(results);
             }*/
             //Button b = (Button) findViewById(R.id.my_button);
+            usernameField.setText(results);
+            if(results == "Materials") {
+                isValidUsername = true;
+            }
+            //create and start new Intent
+            if (isValidUsername) {
+                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+                startActivity(home);
+            }
+            isValidUsername = false;
             loginButton.setClickable(true);
         }
 
