@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,10 +28,13 @@ import java.io.InputStream;
  * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
  * Need to know: read in username & password
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements View.OnClickListener{
+    private Boolean isValidUsername = Boolean.FALSE;
 
-    //create loginButton
+    //create loginButton and text fields
     private Button loginButton;
+    private TextView usernameField;
+    private EditText usernameEnter, passwordEnter;
 
     //get ImageView to add kimLogo in
     private ImageView kimLogo;
@@ -37,31 +42,43 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //needed for our app to talk to the server
+        if (android.os.Build.VERSION.SDK_INT > 7) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            System.out.println("*** My thread is now configured to allow connection");
+        }
+
         setContentView(R.layout.activity_main);
-        loginButton=(Button) findViewById(R.id.loginbutton); //asign login button
+        //assign values to buttons, images, and fields
+        loginButton=(Button) findViewById(R.id.loginbutton);
+        //usernameField=(TextView) findViewById(R.id.editText2);
+        usernameEnter=(EditText) findViewById(R.id.editText2);
+        passwordEnter=(EditText) findViewById(R.id.editText);
         kimLogo = (ImageView) findViewById(R.id.kimLogo);
         kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
         //create onClick listener for login button bringing to HomeActivity
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginButton.setClickable(false);
-                new LongRunningGetIO().execute();
-                //create and start new Intent
-                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-                startActivity(home);
-            }
-        });
+        loginButton.setOnClickListener(this);
     }
 
+    //onClick listener for the login button
+    @Override
+    public void onClick(View arg0) {
+        loginButton.setClickable(false);
+        //starts a server query to verify the username and password
+        new LongRunningGetIO().execute();
+    }
+
+    //This class is mostly taken from lab09
+    //It starts a task to query the database
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
 
         /**
          * This method extracts text from the HTTP response entity.
          *
-         * @param entity thing
-         * @return string
+         * @return string, the username from the server
          * @throws IllegalStateException
          * @throws IOException
          */
@@ -80,8 +97,8 @@ public class MainActivity extends Activity {
         /**
          * This method issues the HTTP GET request.
          *
-         * @param params and stuff
-         * @return text
+         * @param params none
+         * @return text, the result of the query
          */
         @Override
         protected String doInBackground(Void... params) {
@@ -97,7 +114,7 @@ public class MainActivity extends Activity {
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/account/1";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -113,14 +130,24 @@ public class MainActivity extends Activity {
         /**
          * The method takes the results of the request, when they arrive, and updates the interface.
          *
-         * @param results
+         * @param results (of the query)
          */
         protected void onPostExecute(String results) {
-            /*if (results != null) {
-                EditText et = (EditText) findViewById(R.id.my_edit);
-                et.setText(results);
-            }*/
-            //Button b = (Button) findViewById(R.id.my_button);
+            //Checks if the username is the first username in the database
+            //I was having trouble with string comparisons, so
+            //the ability to use other usernames will be added later
+            String testUsername = usernameEnter.getText().toString();
+            String testPassword = passwordEnter.getText().toString();
+            //usernameField.setText(results);
+            if(results.contains(testUsername)) {
+                isValidUsername = true;
+            }
+            //create and start new Intent
+            if (isValidUsername) {
+                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+                startActivity(home);
+            }
+            isValidUsername = false;
             loginButton.setClickable(true);
         }
 
