@@ -147,6 +147,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
                 startActivity(home);
             }
+            else{
+             //print out toast if is INVALID username
+            }
             isValidUsername = false;
             loginButton.setClickable(true);
         }
