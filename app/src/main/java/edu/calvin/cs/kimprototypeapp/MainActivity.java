@@ -44,6 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
         //needed for our app to talk to the server
+
         if (android.os.Build.VERSION.SDK_INT > 7) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -66,9 +67,18 @@ public class MainActivity extends Activity implements View.OnClickListener{
     //onClick listener for the login button
     @Override
     public void onClick(View arg0) {
-        loginButton.setClickable(false);
+       // loginButton.setClickable(false);
         //starts a server query to verify the username and password
-        new LongRunningGetIO().execute();
+
+        //am executing this because server is NOT running
+        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        startActivity(home);
+
+
+        //If SERVER running would execute this:
+        //new LongRunningGetIO().execute();
+
+
     }
 
     //This class is mostly taken from lab09
@@ -149,6 +159,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
             else{
              //print out toast if is INVALID username
+                //however, since server does not function on laptop, in this case also allow user to continue
+                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+                startActivity(home);
+
             }
             isValidUsername = false;
             loginButton.setClickable(true);
