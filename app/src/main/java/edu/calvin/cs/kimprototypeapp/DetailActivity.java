@@ -22,10 +22,17 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
@@ -128,7 +135,53 @@ public class DetailActivity extends Activity {
             int i=0;
             //publishProgress(i);
 
-            return myString;
+            //return "Asnyc task currently returns THIS data";
+
+            String ticker = "GOOG";
+
+            //read xml data from yahoo finance
+            final StringBuilder url = new StringBuilder("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28");
+            url.append("\"");
+            url.append(ticker);
+            url.append("\"");
+            url.append("%29&env=store://datatables.org/alltableswithkeys");
+            String urlString = (String) url.toString();
+            Log.i("URL", "Stock url is" + urlString);
+
+
+
+            String resultElement = "";
+           try {
+               final InputStream stream = new URL(url.toString()).openStream();
+               final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+               documentBuilderFactory.setIgnoringComments(true);
+               final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+               final Document document = documentBuilder.parse(stream);
+               document.getDocumentElement().normalize();
+               final Element elementLeg = (Element) document.getElementsByTagName("results").item(0);
+             //  resultElement = elementLeg.getTextContent();
+               final Element elementStep2 = (Element) elementLeg.getElementsByTagName("Ask").item(0);
+               resultElement = elementStep2.getTextContent();
+
+           }
+           catch (MalformedURLException e){
+               Log.i("input stream error", e.getMessage());
+           }
+            catch (Exception e){
+                Log.i("input stream error", e.getMessage() );
+            }
+
+
+
+
+
+
+
+
+
+            return  resultElement;
+
+
         }
 
         @Override
