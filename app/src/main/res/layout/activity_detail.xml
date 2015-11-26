@@ -1,11 +1,85 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
              android:layout_width="match_parent" android:layout_height="match_parent"
              tools:context="com.example.android.sunshine.app.DetailActivity" tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Buy Price"
+        android:id="@+id/buyView"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/currentPriceView"
+        android:layout_alignStart="@+id/currentPriceView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/currentPriceField"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/sharesText"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/stockText"
+        android:layout_gravity="bottom"
+        android:layout_alignTop="@+id/currentPriceField"
+        android:layout_alignStart="@+id/arrowImage" />
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/arrowImage"
-        android:layout_gravity="right|top"/>
-</FrameLayout>
+        android:layout_gravity="right|top"
+        android:layout_above="@+id/buyView"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Current Price"
+        android:id="@+id/currentPriceView"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/sharesText"
+        android:layout_alignStart="@+id/sharesText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Current Price"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/stockText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="525dp"
+        android:layout_marginBottom="74dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Shares Owned"
+        android:id="@+id/sharesText"
+        android:layout_marginTop="160dp"
+        android:layout_below="@+id/currentPriceField"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Target Price"
+        android:id="@+id/targetText"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/buyView"
+        android:layout_alignStart="@+id/buyView" />
+
+</RelativeLayout>
