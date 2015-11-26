@@ -30,6 +30,8 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -87,8 +89,9 @@ public class DetailActivity extends Activity {
         }
         //Sets up a textbox and makes an AsyncTask to fill it with the stock name
         //This is part of our efforts to use the YahooFinance API
-        TextView stockText = (TextView) findViewById(R.id.stockText);
-        MyTask myTask1 = new MyTask(stockText);
+        TextView lastTrade = (TextView) findViewById(R.id.stockText);
+        TextView priceEarings = (TextView) findViewById(R.id.currentPriceField);
+        MyTask myTask1 = new MyTask(lastTrade, priceEarings); //send view to initialize w/ should add a 2nd view to this
         myTask1.execute(stockName);
         //These next comment blocks are more attempts to use the YahooFinance API
         /*try {
@@ -115,11 +118,15 @@ public class DetailActivity extends Activity {
         new LongRunningGetIO().execute();
     }
 
+
     //Beginning of the class that will get stock information via Yahoo Finance API
-    public class MyTask extends AsyncTask<String, Integer, String> {
-        private TextView myTextview;
-        public MyTask(final TextView textView){
-            this.myTextview = textView;
+    public class MyTask extends AsyncTask<String, Integer, ArrayList<String>> {
+        private TextView lastTradeTextView, priceEarningsTextView;
+        private final ArrayList<String> valuesToBeReturned = new ArrayList<String>();
+
+        public MyTask(final TextView lastTrade, final TextView priceEarnings){
+            this.lastTradeTextView = lastTrade;
+            this.priceEarningsTextView = priceEarnings;
 
         }
 
@@ -128,9 +135,12 @@ public class DetailActivity extends Activity {
 
         }
 
+
+
         @Override
-        protected String doInBackground(String... params) {
+        protected ArrayList<String> doInBackground(String... params) {
             String myString = params[0];
+
 
             int i=0;
             //publishProgress(i);
@@ -150,7 +160,8 @@ public class DetailActivity extends Activity {
 
 
 
-            String resultElement = "";
+            Double lastTradePriceDouble = 0.0;
+            Double priceEarningsDouble = 0.0;
            try {
                final InputStream stream = new URL(url.toString()).openStream();
                final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -160,8 +171,14 @@ public class DetailActivity extends Activity {
                document.getDocumentElement().normalize();
                final Element elementLeg = (Element) document.getElementsByTagName("results").item(0);
              //  resultElement = elementLeg.getTextContent();
-               final Element elementStep2 = (Element) elementLeg.getElementsByTagName("Ask").item(0);
-               resultElement = elementStep2.getTextContent();
+               final Element lastTradeElement = (Element) elementLeg.getElementsByTagName("LastTradePriceOnly").item(0);
+               final Element priceEarningElement = (Element) elementLeg.getElementsByTagName("PERatio").item(0);
+               String lastTradePrice = lastTradeElement.getTextContent();
+               String priceEarning = priceEarningElement.getTextContent();
+               lastTradePriceDouble = Double.parseDouble(lastTradePrice);
+               priceEarningsDouble = Double.parseDouble(priceEarning);
+
+
 
            }
            catch (MalformedURLException e){
@@ -174,28 +191,37 @@ public class DetailActivity extends Activity {
 
 
 
+            //put the values to be changed into a list
+            valuesToBeReturned.add(lastTradePriceDouble.toString());
+            valuesToBeReturned.add(priceEarningsDouble.toString());
 
 
 
 
-
-            return  resultElement;
+            return  valuesToBeReturned;
 
 
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values){
+        protected void onProgressUpdate(Integer... params){
 
         }
 
+
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(ArrayList<String> result){
             //Sets the stock name to the textbox
-            myTextview.setText(result);
+            lastTradeTextView.setText(result.get(0));
+            priceEarningsTextView.setText(result.get(1));
             super.onPostExecute(result);
         }
+
     }
+
+
+
+
 
     //Class to run a database query to get a stock's current price
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {

@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Buy Price"
+        android:text="Current Price"
         android:id="@+id/buyView"
         android:layout_marginTop="49dp"
         android:layout_below="@+id/currentPriceView"
@@ -19,9 +19,10 @@
         android:text="New Text"
         android:id="@+id/currentPriceField"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="162dp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/sharesText"
-        android:layout_marginTop="35dp" />
+        android:layout_marginStart="19dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,10 +30,9 @@
         android:text="New Text"
         android:id="@+id/stockText"
         android:layout_gravity="bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_alignBottom="@+id/buyView"
+        android:layout_alignStart="@+id/currentPriceField"/>
 
     <ImageView
         android:layout_width="80dp"
@@ -46,11 +46,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Current Price"
+        android:text="PE Ratio"
         android:id="@+id/currentPriceView"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/sharesText"
-        android:layout_alignStart="@+id/sharesText" />
+        android:layout_alignTop="@+id/currentPriceField"
+        android:layout_alignStart="@+id/sharesText"/>
 
     <TextView
         android:layout_width="wrap_content"
