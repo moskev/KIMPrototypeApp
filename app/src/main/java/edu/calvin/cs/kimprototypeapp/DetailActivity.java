@@ -95,7 +95,7 @@ public class DetailActivity extends Activity {
         TextView lastTrade = (TextView) findViewById(R.id.stockText);
         TextView priceEarings = (TextView) findViewById(R.id.currentPriceField);
         //pass the textboxes and stock name as parameters to Async Task
-        MyTask myTask1 = new MyTask(lastTrade, priceEarings); //send view to initialize w/ should add a 2nd view to this
+        MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView); //send view to initialize w/ should add a 2nd view to this
         myTask1.execute(stockName); //executes Async task
 
 
@@ -108,15 +108,18 @@ public class DetailActivity extends Activity {
     public class MyTask extends AsyncTask<String, Integer, ArrayList<String>> {
         //textviews in which data will appear
         private TextView lastTradeTextView, priceEarningsTextView;
+        //imageView for the up and down arrow
+        private ImageView arrowView;
         //ArrayList that stores strings to display in textViews
         private final ArrayList<String> valuesToBeReturned = new ArrayList<String>();
         //stores name of stock passed to Async Task
         private String passedStockName = "";
 
         //initialize method for Async task, receives 2 textviews
-        public MyTask(final TextView lastTrade, final TextView priceEarnings){
+        public MyTask(final TextView lastTrade, final TextView priceEarnings, final ImageView arrowImage){
             this.lastTradeTextView = lastTrade;
             this.priceEarningsTextView = priceEarnings;
+            this.arrowView = arrowImage;
 
         }
 
@@ -149,6 +152,8 @@ public class DetailActivity extends Activity {
             //create variables to store url items in
             Double lastTradePriceDouble = 0.0;
             Double priceEarningsDouble = 0.0;
+            Double amountChangeDouble = 0.0;
+            String upOrDown = "";
            try {
                final InputStream stream = new URL(url.toString()).openStream();
                final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -161,11 +166,22 @@ public class DetailActivity extends Activity {
               //get particular results, in this case LastTradePrice and PERation
                final Element lastTradeElement = (Element) elementLeg.getElementsByTagName("LastTradePriceOnly").item(0);
                final Element priceEarningElement = (Element) elementLeg.getElementsByTagName("PERatio").item(0);
+               final Element changeElement = (Element) elementLeg.getElementsByTagName("Change").item(0);
                //get the content of these elements and convert them to doubles
                String lastTradePrice = lastTradeElement.getTextContent();
                String priceEarning = priceEarningElement.getTextContent();
+               String amountChanged = changeElement.getTextContent();
                lastTradePriceDouble = Double.parseDouble(lastTradePrice);
                priceEarningsDouble = Double.parseDouble(priceEarning);
+               amountChangeDouble = Double.parseDouble(amountChanged);
+               //look to see if the stock went up or down
+               if (amountChangeDouble>=0){
+                   upOrDown = "up";
+               }
+               else {
+                   upOrDown = "down";
+               }
+
 
 
 
@@ -183,6 +199,7 @@ public class DetailActivity extends Activity {
             //put the values to be changed into a list
             valuesToBeReturned.add(lastTradePriceDouble.toString());
             valuesToBeReturned.add(priceEarningsDouble.toString());
+            valuesToBeReturned.add(upOrDown); //add string saying whether it went up or down
 
             //return Array list with stock data
             return  valuesToBeReturned;
@@ -201,6 +218,13 @@ public class DetailActivity extends Activity {
             //Sets the stock name to the textbox
             lastTradeTextView.setText(result.get(0)); //set text of first textbox to lastTradeValue
             priceEarningsTextView.setText(result.get(1)); //set text of 2nd textbox to PE ratio
+            String upOrDown = result.get(2);
+            if (upOrDown.contains("up")){
+                arrowView.setImageResource(R.mipmap.up_arrow);
+            }
+            else {
+                arrowView.setImageResource(R.mipmap.down_arrow);
+            }
             super.onPostExecute(result);
         }
 
