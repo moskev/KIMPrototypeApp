@@ -71,12 +71,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         //starts a server query to verify the username and password
 
         //am executing this because server is NOT running
-        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        startActivity(home);
+        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        //startActivity(home);
 
 
         //If SERVER running would execute this:
-        //new LongRunningGetIO().execute();
+        new LongRunningGetIO().execute();
 
 
     }

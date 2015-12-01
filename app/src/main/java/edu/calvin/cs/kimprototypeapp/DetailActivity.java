@@ -77,7 +77,7 @@ public class DetailActivity extends Activity {
 
 
        //used when connecting to the server
-       // new LongRunningGetIO().execute();
+       //new LongRunningGetIO().execute();
     }
 
 
