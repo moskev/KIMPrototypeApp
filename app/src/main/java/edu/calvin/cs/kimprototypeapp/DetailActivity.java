@@ -3,7 +3,6 @@ package edu.calvin.cs.kimprototypeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,13 +21,18 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
-import yahoofinance.Stock;
-import yahoofinance.YahooFinance;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 /*
 Detail activity will have information about specific stocks.
@@ -50,6 +54,8 @@ public class DetailActivity extends Activity {
 
 
         Intent intent = getIntent();
+
+        //get stockName from the intent
         String stockName = intent.getStringExtra(Intent.EXTRA_TEXT);
 
         //when we receive info from the database, this will set the arrow according to code from the database
@@ -58,91 +64,159 @@ public class DetailActivity extends Activity {
        //makes sure get stock name correctly
         Log.i("STOCK Name:", stockName);
 
-        //Checks if the stock contains the correct variable to make the arrow green
-        boolean value = stockName.contains("BEKA");
-        String truthValue;
-        if (value == true){
-            truthValue = "true";
-        }
-        else {
-            truthValue = "false";
-        }
-        Log.i("TRUE/FALSE", truthValue);
 
 
-        //if the stock contains the correct variable to make the arrow green, it makes it green
-        if (value) {
-            arrowView.setImageResource(R.mipmap.up_arrow);
-        }
-        //otherwise, it makes it red
-        else {
-            arrowView.setImageResource(R.mipmap.down_arrow);
-        }
-        //Sets up a textbox and makes an AsyncTask to fill it with the stock name
-        //This is part of our efforts to use the YahooFinance API
-        TextView stockText = (TextView) findViewById(R.id.stockText);
-        MyTask myTask1 = new MyTask(stockText);
-        myTask1.execute(stockName);
-        //These next comment blocks are more attempts to use the YahooFinance API
-        /*try {
-            Stock stock = YahooFinance.get(stockName);
 
-            BigDecimal price = stock.getQuote().getPrice();
-            Log.i("Beka",price.toString());
-            BigDecimal change = stock.getQuote().getChangeInPercent();
-            BigDecimal peg = stock.getStats().getPeg();
-            BigDecimal dividend = stock.getDividend().getAnnualYieldPercent();
-            //stock.print();
+        //Sets up a textboxes and makes an AsyncTask to fill it with the stock name
+        TextView lastTrade = (TextView) findViewById(R.id.CurrentPriceDisplay);
+        TextView priceEarings = (TextView) findViewById(R.id.PETextDisplay);
+        TextView companyName = (TextView) findViewById(R.id.stock_name);
+        //pass the textboxes and stock name as parameters to Async Task
+        MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView, companyName); //send view to initialize w/ should add a 2nd view to this
+        myTask1.execute(stockName); //executes Async task
 
-        } catch (Exception e){
-            Log.i("Andrew:",e.toString());
-        };
-        //Moses helped. #pairProgramming
-        /*try {
-            Stock stock = YahooFinance.get(stockName);
-            BigDecimal price = stock.getQuote(true).getPrice();
-            System.out.println(price);
-        } catch (Exception e) {}*/
-        //Creates a text box and runs an Async task to fill it with the current price of a stock
-        currentPriceField=(TextView) findViewById(R.id.currentPriceField);
-        new LongRunningGetIO().execute();
+
+       //used when connecting to the server
+       // new LongRunningGetIO().execute();
     }
 
+
     //Beginning of the class that will get stock information via Yahoo Finance API
-    public class MyTask extends AsyncTask<String, Integer, String> {
-        private TextView myTextview;
-        public MyTask(final TextView textView){
-            this.myTextview = textView;
+    public class MyTask extends AsyncTask<String, Integer, ArrayList<String>> {
+        //textviews in which data will appear
+        private TextView lastTradeTextView, priceEarningsTextView, stockNameTextView;
+        //imageView for the up and down arrow
+        private ImageView arrowView;
+        //ArrayList that stores strings to display in textViews
+        private final ArrayList<String> valuesToBeReturned = new ArrayList<String>();
+        //stores name of stock passed to Async Task
+        private String passedStockName = "";
+
+        //initialize method for Async task, receives 2 textviews
+        public MyTask(final TextView lastTrade, final TextView priceEarnings, final ImageView arrowImage, final TextView companyName){
+            this.lastTradeTextView = lastTrade;
+            this.priceEarningsTextView = priceEarnings;
+            this.arrowView = arrowImage;
+            this.stockNameTextView = companyName;
 
         }
 
+        //before executed - do nothing
         @Override
         protected void onPreExecute(){
 
         }
 
+
+        //doInBackground is the task to do in the background, receives stock name as a param
         @Override
-        protected String doInBackground(String... params) {
-            String myString = params[0];
+        protected ArrayList<String> doInBackground(String... params) {
+            String ticker = params[0]; //receives stock name to do query on
 
-            int i=0;
-            //publishProgress(i);
 
-            return myString;
+
+            //read xml data from yahoo finance
+            final StringBuilder url = new StringBuilder("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28");  //creates intial url
+            //constructs custom url be appending
+            url.append("\"");
+            url.append(ticker);
+            url.append("\"");
+            url.append("%29&env=store://datatables.org/alltableswithkeys");
+            String urlString = (String) url.toString();
+            //Log url
+            Log.i("URL", "Stock url is" + urlString);
+
+
+            //create variables to store url items in
+            Double lastTradePriceDouble = 0.0;
+            Double priceEarningsDouble = 0.0;
+            Double amountChangeDouble = 0.0;
+            String upOrDown = "";
+            String companyName = "";
+           try {
+               final InputStream stream = new URL(url.toString()).openStream();
+               final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+               documentBuilderFactory.setIgnoringComments(true);
+               final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+               final Document document = documentBuilder.parse(stream);
+               document.getDocumentElement().normalize();
+               //elementLeg reads from results
+               final Element elementLeg = (Element) document.getElementsByTagName("results").item(0);
+              //get particular results, in this case LastTradePrice and PERation
+               final Element lastTradeElement = (Element) elementLeg.getElementsByTagName("LastTradePriceOnly").item(0);
+               final Element priceEarningElement = (Element) elementLeg.getElementsByTagName("PERatio").item(0);
+               final Element changeElement = (Element) elementLeg.getElementsByTagName("Change").item(0);
+               final Element nameElement = (Element) elementLeg.getElementsByTagName("Name").item(0);
+               //get the content of these elements and convert them to doubles
+               String lastTradePrice = lastTradeElement.getTextContent();
+               String priceEarning = priceEarningElement.getTextContent();
+               String amountChanged = changeElement.getTextContent();
+               companyName = nameElement.getTextContent();
+               Log.i("company", companyName);
+               lastTradePriceDouble = Double.parseDouble(lastTradePrice);
+               priceEarningsDouble = Double.parseDouble(priceEarning);
+               amountChangeDouble = Double.parseDouble(amountChanged);
+               //look to see if the stock went up or down
+               if (amountChangeDouble>=0){
+                   upOrDown = "up";
+               }
+               else {
+                   upOrDown = "down";
+               }
+
+
+
+
+           }
+           //catch malformedURL error
+           catch (MalformedURLException e){
+               Log.i("input stream error", e.getMessage());
+           }
+           //catch other errors
+            catch (Exception e){
+                Log.i("input stream error", e.getMessage() );
+            }
+
+
+            //put the values to be changed into a list
+            valuesToBeReturned.add(lastTradePriceDouble.toString());
+            valuesToBeReturned.add(priceEarningsDouble.toString());
+            valuesToBeReturned.add(upOrDown); //add string saying whether it went up or down
+            valuesToBeReturned.add(companyName);
+
+            //return Array list with stock data
+            return  valuesToBeReturned;
         }
 
+
+        //for onProgressUpdate do nothing
         @Override
-        protected void onProgressUpdate(Integer... values){
+        protected void onProgressUpdate(Integer... params){
 
         }
 
+
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(ArrayList<String> result){
             //Sets the stock name to the textbox
-            myTextview.setText(result);
+            lastTradeTextView.setText(result.get(0)); //set text of first textbox to lastTradeValue
+            priceEarningsTextView.setText(result.get(1)); //set text of 2nd textbox to PE ratio
+            String upOrDown = result.get(2);
+            if (upOrDown.contains("up")){
+                arrowView.setImageResource(R.mipmap.up_arrow);
+            }
+            else {
+                arrowView.setImageResource(R.mipmap.down_arrow);
+            }
+          //  stockNameTextView.setText(result.get(3));
             super.onPostExecute(result);
         }
+
     }
+
+
+
+
 
     //Class to run a database query to get a stock's current price
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
@@ -271,8 +345,9 @@ public class DetailActivity extends Activity {
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
                 //adds stock name to intent
                 String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-                ((TextView) rootView.findViewById(R.id.stock_name))
-                        .setText(forecastStr);
+                //this would be settting the text to the stock name but we will do that in the acutal app
+               // ((TextView) rootView.findViewById(R.id.stock_name))
+                      //  .setText(forecastStr);
             }
 
 
