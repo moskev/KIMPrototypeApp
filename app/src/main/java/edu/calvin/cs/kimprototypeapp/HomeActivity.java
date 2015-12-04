@@ -175,7 +175,7 @@ public static class PlaceholderFragment extends Fragment {
 
         // Create dummy stock data for ListView
         String[] data = {
-                "GS", "THOR", "GOOG", "TSM", "EG", "MIOM", "C9", "BEKA'S Awesome STOCK!!!",  "Chicken Stock", "LIQU", "EOG", "TLU", "M2K", "KEN", "PPMD", "LFN", "Moses' Super Stock", "MNGO", "AMSA", "HBOX", "ARMD", "SFAT"
+                "AAPL", "CSCO", "EA", "FB", "GOOG", "IBM", "JPM", "MSFT", "ORCL", "PM", "SBUX", "TSLA", "UA", "TLU", "XOM", "ZNGA", "BEKA'S STOCK!!!", "Chicken Stock"
         };
 
         //takes array of data and stores it as a list
