@@ -3,6 +3,7 @@ package edu.calvin.cs.kimprototypeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +33,7 @@ import java.util.List;
  * HomeActivity displays the stocks in a list format
  */
 public class HomeActivity extends Activity {
+    String dbStocks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +44,77 @@ public class HomeActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment()) //starts placeholder fragment
                     .commit();
         }
+        //If SERVER running would execute this:
+        new LongRunningGetIO().execute();
     }
+
+//This class is mostly taken from lab09
+//It starts a task to query the database
+private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
+
+    /**
+     * This method extracts text from the HTTP response entity.
+     *
+     * @return string, the username from the server
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+        InputStream in = entity.getContent();
+        StringBuilder out = new StringBuilder();
+        int n = 1;
+        while (n > 0) {
+            byte[] b = new byte[4096];
+            n = in.read(b);
+            if (n > 0) out.append(new String(b, 0, n));
+        }
+        return out.toString();
+    }
+
+    /**
+     * This method issues the HTTP GET request.
+     *
+     * @param params none
+     * @return text, the result of the query
+     */
+    @Override
+    protected String doInBackground(Void... params) {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpContext localContext = new BasicHttpContext();
+            /*
+      This inner class sends an HTTP requests to the Monopoly RESTful service API. It uses an
+      asynchronous task to take the slow I/O off the main interface thread.
+      <p/>
+      It uses 10.0.2.2 to access localhost, see
+      http://developer.android.com/tools/devices/emulator.html#networkaddresses
+      <p/>
+      It retains the deprecated classes in order to remain backwards compatible for Android 4, see
+      http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
+     */
+        String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stocks";
+        HttpGet httpGet = new HttpGet(PEOPLE_URI);
+        String text;
+        try {
+            HttpResponse response = httpClient.execute(httpGet, localContext);
+            HttpEntity entity = response.getEntity();
+            text = getASCIIContentFromEntity(entity);
+        } catch (Exception e) {
+            return e.getLocalizedMessage();
+        }
+        return text;
+    }
+
+    /**
+     * The method takes the results of the request, when they arrive, and updates the interface.
+     *
+     * @param results (of the query)
+     */
+    protected void onPostExecute(String results) {
+        dbStocks = results;
+    }
+
+}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
