@@ -77,7 +77,8 @@ public class DetailActivity extends Activity {
 
 
        //used when connecting to the server
-       // new LongRunningGetIO().execute();
+       currentPriceField = (TextView) findViewById(R.id.targetPriceDisplay);
+       new LongRunningGetIO().execute();
     }
 
 
@@ -281,7 +282,7 @@ public class DetailActivity extends Activity {
          */
         protected void onPostExecute(String results) {
             //Prints the label and price in the textbox
-            currentPriceField.setText("Current Price: " + results);
+            currentPriceField.setText("Database Price: " + results);
         }
 
     }
