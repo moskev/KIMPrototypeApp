@@ -204,22 +204,27 @@ public static class PlaceholderFragment extends Fragment {
         List<String> stocks = new ArrayList<String>(Arrays.asList(stockData));
 
         //Adapter takes data from the source and uses it to populate ListView
+        //would it be possible to make each of these a diff. color depending on certain charactreisitcs?
         mStockAdapter = new ArrayAdapter<String>(
                 getActivity(), //fragment's parent activity xx
                 R.layout.list_item_stock, //name of layout ID
                 R.id.list_item_stock_textview, //ID of textview in that layout to populate
                 stocks //the data to populate it with
-        );
+
+
+            );
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_stocks);
-        listView.setAdapter(mStockAdapter); //supply list item layouts to list view based on the forecast data
+
+        listView.setAdapter(mStockAdapter); //here is where the adapter is being set, could hypothetically set to custom adapter
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
+             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String stockName = mStockAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
