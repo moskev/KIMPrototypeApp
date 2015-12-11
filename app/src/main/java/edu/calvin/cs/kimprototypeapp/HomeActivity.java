@@ -3,6 +3,7 @@ package edu.calvin.cs.kimprototypeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,17 +33,95 @@ import java.util.List;
  * HomeActivity displays the stocks in a list format
  */
 public class HomeActivity extends Activity {
+    String dbStocks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("STOCKS", dbStocks);
+
+        PlaceholderFragment fragment = new PlaceholderFragment();
+        fragment.setArguments(bundle);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment()) //starts placeholder fragment
+                    .add(R.id.container, fragment) //starts placeholder fragment
                     .commit();
         }
+        //If SERVER running would execute this:
+        new LongRunningGetIO().execute();
     }
+
+//This class is mostly taken from lab09
+//It starts a task to query the database
+private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
+
+    /**
+     * This method extracts text from the HTTP response entity.
+     *
+     * @return string, the username from the server
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+        InputStream in = entity.getContent();
+        StringBuilder out = new StringBuilder();
+        int n = 1;
+        while (n > 0) {
+            byte[] b = new byte[4096];
+            n = in.read(b);
+            if (n > 0) out.append(new String(b, 0, n));
+        }
+        return out.toString();
+    }
+
+    /**
+     * This method issues the HTTP GET request.
+     *
+     * @param params none
+     * @return text, the result of the query
+     */
+    @Override
+    protected String doInBackground(Void... params) {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpContext localContext = new BasicHttpContext();
+            /*
+      This inner class sends an HTTP requests to the Monopoly RESTful service API. It uses an
+      asynchronous task to take the slow I/O off the main interface thread.
+      <p/>
+      It uses 10.0.2.2 to access localhost, see
+      http://developer.android.com/tools/devices/emulator.html#networkaddresses
+      <p/>
+      It retains the deprecated classes in order to remain backwards compatible for Android 4, see
+      http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
+     */
+        String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stocks";
+        HttpGet httpGet = new HttpGet(PEOPLE_URI);
+        String text;
+        try {
+            HttpResponse response = httpClient.execute(httpGet, localContext);
+            HttpEntity entity = response.getEntity();
+            text = getASCIIContentFromEntity(entity);
+        } catch (Exception e) {
+            return e.getLocalizedMessage();
+        }
+        return text;
+    }
+
+    /**
+     * The method takes the results of the request, when they arrive, and updates the interface.
+     *
+     * @param results (of the query)
+     */
+    protected void onPostExecute(String results) {
+        dbStocks = results;
+    }
+
+}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,36 +180,55 @@ public static class PlaceholderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        String stockString="";
+
+
+
+       ///get string from server passed to Placeholder Fragment as an argument
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            stockString = bundle.getString("STRING", "AAPL\n" + "CSCO\n" + "EA\n" + "FB\n" + "GOOG\n"); //the 2nd param is the default, i.e. if it cannot
+            //read in from the database
+        }
+
+
+        //parse the string into an array of string
+        String[] stockData = stockString.split("\\n");
+
         // Create dummy stock data for ListView
-        String[] data = {
-                "GS", "THOR", "GOOG", "TSM", "EG", "MIOM", "C9", "BEKA'S Awesome STOCK!!!",  "Chicken Stock", "LIQU", "EOG", "TLU", "M2K", "KEN", "PPMD", "LFN", "Moses' Super Stock", "MNGO", "AMSA", "HBOX", "ARMD", "SFAT"
-        };
+       // String[] data = {
+        //        "AAPL", "CSCO", "EA", "FB", "GOOG", "IBM", "JPM", "MSFT", "ORCL", "PM", "SBUX", "TSLA", "UA", "TLU", "XOM", "ZNGA", "BEKA'S STOCK!!!", "Chicken Stock"
+//        };
 
         //takes array of data and stores it as a list
-        List<String> stocks = new ArrayList<String>(Arrays.asList(data));
+        List<String> stocks = new ArrayList<String>(Arrays.asList(stockData));
 
         //Adapter takes data from the source and uses it to populate ListView
+        //would it be possible to make each of these a diff. color depending on certain charactreisitcs?
         mStockAdapter = new ArrayAdapter<String>(
                 getActivity(), //fragment's parent activity xx
                 R.layout.list_item_stock, //name of layout ID
                 R.id.list_item_stock_textview, //ID of textview in that layout to populate
                 stocks //the data to populate it with
-        );
+
+
+            );
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_stocks);
-        listView.setAdapter(mStockAdapter); //supply list item layouts to list view based on the forecast data
+
+        listView.setAdapter(mStockAdapter); //here is where the adapter is being set, could hypothetically set to custom adapter
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
+             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String stockName = mStockAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, stockName);
-               // intent.putExtra(Intent.EXTRA_TEXT, stockIsUp);
                 startActivity(intent);
 
 
