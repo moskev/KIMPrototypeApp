@@ -37,11 +37,18 @@ public class HomeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("STOCKS", dbStocks);
+
+        PlaceholderFragment fragment = new PlaceholderFragment();
+        fragment.setArguments(bundle);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment()) //starts placeholder fragment
+                    .add(R.id.container, fragment) //starts placeholder fragment
                     .commit();
         }
         //If SERVER running would execute this:
@@ -173,36 +180,55 @@ public static class PlaceholderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        String stockString="";
+
+
+
+       ///get string from server passed to Placeholder Fragment as an argument
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            stockString = bundle.getString("STRING", "AAPL\n" + "CSCO\n" + "EA\n" + "FB\n" + "GOOG\n"); //the 2nd param is the default, i.e. if it cannot
+            //read in from the database
+        }
+
+
+        //parse the string into an array of string
+        String[] stockData = stockString.split("\\n");
+
         // Create dummy stock data for ListView
-        String[] data = {
-                "AAPL", "CSCO", "EA", "FB", "GOOG", "IBM", "JPM", "MSFT", "ORCL", "PM", "SBUX", "TSLA", "UA", "TLU", "XOM", "ZNGA", "BEKA'S STOCK!!!", "Chicken Stock"
-        };
+       // String[] data = {
+        //        "AAPL", "CSCO", "EA", "FB", "GOOG", "IBM", "JPM", "MSFT", "ORCL", "PM", "SBUX", "TSLA", "UA", "TLU", "XOM", "ZNGA", "BEKA'S STOCK!!!", "Chicken Stock"
+//        };
 
         //takes array of data and stores it as a list
-        List<String> stocks = new ArrayList<String>(Arrays.asList(data));
+        List<String> stocks = new ArrayList<String>(Arrays.asList(stockData));
 
         //Adapter takes data from the source and uses it to populate ListView
+        //would it be possible to make each of these a diff. color depending on certain charactreisitcs?
         mStockAdapter = new ArrayAdapter<String>(
                 getActivity(), //fragment's parent activity xx
                 R.layout.list_item_stock, //name of layout ID
                 R.id.list_item_stock_textview, //ID of textview in that layout to populate
                 stocks //the data to populate it with
-        );
+
+
+            );
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_stocks);
-        listView.setAdapter(mStockAdapter); //supply list item layouts to list view based on the forecast data
+
+        listView.setAdapter(mStockAdapter); //here is where the adapter is being set, could hypothetically set to custom adapter
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
+             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String stockName = mStockAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, stockName);
-               // intent.putExtra(Intent.EXTRA_TEXT, stockIsUp);
                 startActivity(intent);
 
 
