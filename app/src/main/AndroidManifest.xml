@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,11 +18,11 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home" >
+            android:label="KIM Stocks" >
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:label="@string/title_activity_detail" >
+            android:label="Stock Info" >
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -34,15 +34,15 @@
         </activity>
         <activity
             android:name=".PortfolioActivity"
-            android:label="@string/title_activity_portfolio" >
+            android:label="KIM Portfolio" >
         </activity>
         <activity
             android:name=".TrainingActivity"
-            android:label="@string/title_activity_training" >
+            android:label="Training Guide" >
         </activity>
         <activity
             android:name=".StockPitchActivity"
-            android:label="@string/title_activity_stock_pitch" >
+            android:label="Stock Pitch" >
         </activity>
         <activity
             android:name=".AboutActivity"
@@ -50,7 +50,7 @@
         </activity>
         <activity
             android:name=".LogoutActivity"
-            android:label="@string/title_activity_logout" >
+            android:label="Logout" >
         </activity>
     </application>
 

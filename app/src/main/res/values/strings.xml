@@ -12,7 +12,7 @@
     <string name="Password">Password</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="Login">Login</string>
-    <string name="Individual_Stocks">Individual Stocks</string>
+    <string name="Stocks">Stocks</string>
     <string name="editPortfolioText">Total Holdings = $1,201,936.67</string>
     <string name="portfolioPreview">This page will later have a graph and more info about the portfolio.</string>
     <string name="aboutPreview">This page will later have information about KIM.</string>
@@ -30,4 +30,5 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_log_out">StockPitchActivity</string>
     <string name="title_activity_logout">LogoutActivity</string>
+    <string name="title_activity_admin">AdminActivity</string>
 </resources>

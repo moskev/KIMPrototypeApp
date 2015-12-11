@@ -9,9 +9,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Current Price"
         android:id="@+id/buyView"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/currentPriceView"
-        android:layout_alignStart="@+id/currentPriceView" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,10 +18,8 @@
         android:text="PE Ratio Text"
         android:id="@+id/PETextDisplay"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="162dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/sharesText"
-        android:layout_marginStart="19dp"/>
+        android:layout_alignTop="@+id/currentPriceView"
+        android:layout_alignEnd="@+id/CurrentPriceDisplay" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +29,7 @@
         android:layout_gravity="bottom"
         android:textSize="20dp"
         android:layout_alignBottom="@+id/buyView"
-        android:layout_alignStart="@+id/PETextDisplay"/>
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="80dp"
@@ -50,8 +47,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PE Ratio"
         android:id="@+id/currentPriceView"
-        android:layout_alignTop="@+id/PETextDisplay"
-        android:layout_alignStart="@+id/sharesText"/>
+        android:layout_above="@+id/buyView"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,10 +56,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Shares Owned"
         android:id="@+id/sharesText"
-        android:layout_marginTop="160dp"
-        android:layout_below="@+id/PETextDisplay"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="32dp" />
+        android:layout_below="@+id/targetText"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,8 +65,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Target Price"
         android:id="@+id/targetText"
-        android:layout_marginTop="44dp"
-        android:layout_below="@+id/buyView"
+        android:layout_below="@+id/CurrentPriceDisplay"
         android:layout_alignStart="@+id/buyView" />
 
     <TextView
