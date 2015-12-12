@@ -18,11 +18,14 @@
     <string name="portfolioPreview">This page will later have a graph and more info about the portfolio.</string>
     <string name="aboutPreview">This page will later have information about KIM.</string>
     <string name="trainingPreview">Click on the following link for the training manual: </string>
+    <string name="stockPreview">Click on the following link for KIM stock pitches: </string>
     <string name="stockPitchPreview">This page will later have the current week\'s stock pitch.</string>
     <string name="hello_world">Hello world!</string>
-    <string name="training_drive_link">https://drive.google.com/folderview?id=0B93pinjwrYuGLW16akNDNUhibXM\u0026usp=sharing</string>
+    <string name="stock_pitches_link">https://drive.google.com/folderview?id=0B93pinjwrYuGLW16akNDNUhibXM\u0026usp=sharing</string>
+    <string name="training_drive_link">https://drive.google.com/folderview?id=0B93pinjwrYuGMHVTTGgzd3NEb0k\u0026usp=sharing</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_portfolio">PortfolioActivity</string>
