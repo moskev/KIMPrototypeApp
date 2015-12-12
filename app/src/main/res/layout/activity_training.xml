@@ -8,6 +8,19 @@
     tools:context="edu.calvin.cs.kimprototypeapp.TrainingActivity">
     <!--Explanation text-->
     <TextView android:text="@string/trainingPreview" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/clickOnTraining"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trainingLink"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:textSize="30dp"
+        android:layout_below="@+id/clickOnTraining"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="64dp" />
 
 </RelativeLayout>
