@@ -72,6 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         //create onClick listener for login button bringing to HomeActivity
         loginButton.setOnClickListener(this);
+        
     }
 
     //onClick listener for the login button
