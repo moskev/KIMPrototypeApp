@@ -29,6 +29,9 @@ import java.io.InputStream;
  * Need to know: read in username & password
  */
 public class MainActivity extends Activity implements View.OnClickListener{
+
+
+
     private Boolean isValidUsername = Boolean.FALSE;
 
     //create loginButton and text fields
@@ -41,6 +44,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+       //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
+        /**
+        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        startActivity(home);
+         **/
+
         super.onCreate(savedInstanceState);
 
         //needed for our app to talk to the server
@@ -62,6 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         //create onClick listener for login button bringing to HomeActivity
         loginButton.setOnClickListener(this);
+        
     }
 
     //onClick listener for the login button
