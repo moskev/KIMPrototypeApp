@@ -9,6 +9,8 @@
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/action_stockPitch" android:title="@string/action_stockPitch"
         android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/action_adminTools" android:title="@string/action_adminTools"
+        android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/action_logout" android:title="@string/action_logout"
         android:orderInCategory="100" android:showAsAction="never" />
 </menu>

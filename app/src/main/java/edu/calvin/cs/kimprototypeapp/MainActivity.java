@@ -124,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/account/1";
+            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -149,8 +149,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
             String testUsername = usernameEnter.getText().toString();
             String testPassword = passwordEnter.getText().toString();
             //usernameField.setText(results);
-            if(results.contains(testUsername)) {
-                isValidUsername = true;
+            //if(results.contains(testUsername)) {
+            String[] usernameList = results.split("\\n");
+            for(int i=0; i<usernameList.length; i+=2) {
+                if (usernameList[i].equals(testUsername)) {
+                    if(usernameList[i+1].equals(testPassword)) {
+                        isValidUsername = true;
+                    }
+                }
             }
             //create and start new Intent
             if (isValidUsername) {
@@ -165,8 +171,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }*/
             isValidUsername = false;
             loginButton.setClickable(true);
+            usernameEnter.setText("");
+            passwordEnter.setText("");
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        usernameEnter.setText("");
+        passwordEnter.setText("");
+        super.onResume();
     }
 
     @Override

@@ -7,6 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_training">Training Guide</string>
     <string name="action_stockPitch">Stock Pitch</string>
+    <string name="action_adminTools">Admin Tools</string>
     <string name="action_logout">Log Out</string>
     <string name="Username">Username</string>
     <string name="Password">Password</string>
@@ -16,9 +17,10 @@
     <string name="editPortfolioText">Total Holdings = $1,201,936.67</string>
     <string name="portfolioPreview">This page will later have a graph and more info about the portfolio.</string>
     <string name="aboutPreview">This page will later have information about KIM.</string>
-    <string name="trainingPreview">This page will later have the KIM training guide.</string>
+    <string name="trainingPreview">Click on the following link for the training manual: </string>
     <string name="stockPitchPreview">This page will later have the current week\'s stock pitch.</string>
     <string name="hello_world">Hello world!</string>
+    <string name="training_drive_link">https://drive.google.com/folderview?id=0B93pinjwrYuGLW16akNDNUhibXM\u0026usp=sharing</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
