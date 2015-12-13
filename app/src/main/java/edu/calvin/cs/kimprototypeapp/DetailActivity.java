@@ -34,56 +34,56 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-/*
-Detail activity will have information about specific stocks.
-It will be accessible by clicking on a specific stock's name elsewhere in the program.
+/* @author Lydia Cupery, Beka Agava, Andrew Groenewold, Moses Mangunrahardja
+ * DetailActivity retrieves details about th specific stock from the database and yahooAPI
  */
 
 public class DetailActivity extends Activity {
+
+    //global variables
     private TextView currentPriceField;
     String stockName;
 
+    /*  onCreate initializes the view
+    * @param savedInstanceState receives view from parent (in this case none)
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //initializes view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new DetailFragment())
                     .commit();
         }
 
-
+        //looks at intent that called DetailActivity
         Intent intent = getIntent();
-
-        //get stockName from the intent
+        //gets stockName from that intent
         stockName = intent.getStringExtra(Intent.EXTRA_TEXT);
 
         //when we receive info from the database, this will set the arrow according to code from the database
         ImageView arrowView = (ImageView) findViewById(R.id.arrowImage);
 
-       //makes sure get stock name correctly
-        Log.i("STOCK Name:", stockName);
 
-
-
-
-        //Sets up a textboxes and makes an AsyncTask to fill it with the stock name
+        //Declare textViews and set them to the correct place on the screen
         TextView lastTrade = (TextView) findViewById(R.id.CurrentPriceDisplay);
         TextView priceEarings = (TextView) findViewById(R.id.PETextDisplay);
         TextView companyName = (TextView) findViewById(R.id.stock_name);
+
         //pass the textboxes and stock name as parameters to Async Task
-        MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView, companyName); //send view to initialize w/ should add a 2nd view to this
-        myTask1.execute(stockName); //executes Async task
+        MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView, companyName);
+        //execute Async task
+        myTask1.execute(stockName);
 
-
-       //used when connecting to the server
-       currentPriceField = (TextView) findViewById(R.id.targetPriceDisplay);
        new LongRunningGetIO().execute();
     }
 
 
-    //Beginning of the class that will get stock information via Yahoo Finance API
+    /* the class that will get stock information via Yahoo Finance API
+     */
     public class MyTask extends AsyncTask<String, Integer, ArrayList<String>> {
         //textviews in which data will appear
         private TextView lastTradeTextView, priceEarningsTextView, stockNameTextView;
@@ -91,10 +91,13 @@ public class DetailActivity extends Activity {
         private ImageView arrowView;
         //ArrayList that stores strings to display in textViews
         private final ArrayList<String> valuesToBeReturned = new ArrayList<String>();
-        //stores name of stock passed to Async Task
-        private String passedStockName = "";
 
-        //initialize method for Async task, receives 2 textviews
+        /*  MyTask is the constructor, receives textViews and imageView
+         *  @param lastTrade TextView to store lastTrade from parent
+         *  @param priceEarning TextView to stoe priceEarnings from parent
+         *  @param arrowImage ImageView to store arrowImage from parent
+         *  @param companyName TextView to store companyName from parent
+         */
         public MyTask(final TextView lastTrade, final TextView priceEarnings, final ImageView arrowImage, final TextView companyName){
             this.lastTradeTextView = lastTrade;
             this.priceEarningsTextView = priceEarnings;
@@ -103,19 +106,20 @@ public class DetailActivity extends Activity {
 
         }
 
-        //before executed - do nothing
+        //do nothing before executing
         @Override
         protected void onPreExecute(){
 
         }
 
-
-        //doInBackground is the task to do in the background, receives stock name as a param
+        /* doInBackground is the task to execute in the background, in this case query Yahoo FinanceAPI for specific data
+         * @parameter params receives the ticker of the stock
+         * @return ArrayList
+         */
         @Override
         protected ArrayList<String> doInBackground(String... params) {
-            String ticker = params[0]; //receives stock name to do query on
-
-
+            //receives stock name to do query on
+            String ticker = params[0];
 
             //read xml data from yahoo finance
             final StringBuilder url = new StringBuilder("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28");  //creates intial url
@@ -124,40 +128,44 @@ public class DetailActivity extends Activity {
             url.append(ticker);
             url.append("\"");
             url.append("%29&env=store://datatables.org/alltableswithkeys");
+            //convert url into string
             String urlString = (String) url.toString();
-            //Log url
-            Log.i("URL", "Stock url is" + urlString);
 
 
-            //create variables to store url items in
+            //create variables to store url items in and intialize to 0/null
             Double lastTradePriceDouble = 0.0;
             Double priceEarningsDouble = 0.0;
             Double amountChangeDouble = 0.0;
             String upOrDown = "";
             String companyName = "";
-           try {
+
+            try {
+                //convert the input stream from the particular url into a Document
                final InputStream stream = new URL(url.toString()).openStream();
                final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
                documentBuilderFactory.setIgnoringComments(true);
                final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
                final Document document = documentBuilder.parse(stream);
                document.getDocumentElement().normalize();
+
                //elementLeg reads from results
                final Element elementLeg = (Element) document.getElementsByTagName("results").item(0);
-              //get particular results, in this case LastTradePrice and PERation
+
+              //get particular results, in this case LastTradePrice, PERation, Change and Name
                final Element lastTradeElement = (Element) elementLeg.getElementsByTagName("LastTradePriceOnly").item(0);
                final Element priceEarningElement = (Element) elementLeg.getElementsByTagName("PERatio").item(0);
                final Element changeElement = (Element) elementLeg.getElementsByTagName("Change").item(0);
                final Element nameElement = (Element) elementLeg.getElementsByTagName("Name").item(0);
+
                //get the content of these elements and convert them to doubles
                String lastTradePrice = lastTradeElement.getTextContent();
                String priceEarning = priceEarningElement.getTextContent();
                String amountChanged = changeElement.getTextContent();
                companyName = nameElement.getTextContent();
-               Log.i("company", companyName);
                lastTradePriceDouble = Double.parseDouble(lastTradePrice);
                priceEarningsDouble = Double.parseDouble(priceEarning);
                amountChangeDouble = Double.parseDouble(amountChanged);
+
                //look to see if the stock went up or down
                if (amountChangeDouble>=0){
                    upOrDown = "up";
@@ -165,11 +173,7 @@ public class DetailActivity extends Activity {
                else {
                    upOrDown = "down";
                }
-
-
-
-
-           }
+          }
            //catch malformedURL error
            catch (MalformedURLException e){
                Log.i("input stream error", e.getMessage());
@@ -179,8 +183,7 @@ public class DetailActivity extends Activity {
                 Log.i("input stream error", e.getMessage() );
             }
 
-
-            //put the values to be changed into a list
+            //put the values received from Yahoo API in the valuesToBeReturnedLIst
             valuesToBeReturned.add(lastTradePriceDouble.toString());
             valuesToBeReturned.add(priceEarningsDouble.toString());
             valuesToBeReturned.add(upOrDown); //add string saying whether it went up or down
@@ -198,19 +201,23 @@ public class DetailActivity extends Activity {
         }
 
 
+        //after have executed
         @Override
         protected void onPostExecute(ArrayList<String> result){
-            //Sets the stock name to the textbox
             lastTradeTextView.setText(result.get(0)); //set text of first textbox to lastTradeValue
             priceEarningsTextView.setText(result.get(1)); //set text of 2nd textbox to PE ratio
+            stockNameTextView.setText(result.get(3)); //set the name of the stock
+
+            //look to see if the stock went up or down
             String upOrDown = result.get(2);
+
+            //if it went up
             if (upOrDown.contains("up")){
-                arrowView.setImageResource(R.mipmap.up_arrow);
+                arrowView.setImageResource(R.mipmap.up_arrow); //se the arrow to the up arrow
             }
-            else {
-                arrowView.setImageResource(R.mipmap.down_arrow);
+            else { //if it went down
+                arrowView.setImageResource(R.mipmap.down_arrow); //set the arrow to the down arrow
             }
-          //  stockNameTextView.setText(result.get(3));
             super.onPostExecute(result);
         }
 
@@ -371,6 +378,10 @@ public class DetailActivity extends Activity {
 
     }
 
+    /* onCreateOptionsMenu
+    * @param menu receives the menu
+    * @return always returns true
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -378,8 +389,9 @@ public class DetailActivity extends Activity {
         return true;
     }
 
-    /*
-    This function opens the appropriate activity when a menu button is pushed.
+    /* Opens the appropriate activity when a menu button is pushed.
+    * @param item the specific item that was pushed
+    * @return always returns true
     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -406,38 +418,40 @@ public class DetailActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item); //added git
+        return super.onOptionsItemSelected(item);
     }
 
 
-    /**
-     * A placeholder fragment containing a simple view.
+    /* DetailFragment creates a View     *
      */
     public static class DetailFragment extends Fragment {
 
 
+        //default constructor
         public DetailFragment() {
         }
 
+        /* onCreateView creates the view w/ the list on it
+        * @return View the view with the stock list on it
+        * @param inflater is the xml layout
+        * @param container is the the ViewGroup
+        * @param savedInsanceState is the Bundle that stores View from parent
+        */
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
+            //initialize rootView
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-            // The detail Activity called via intent.  Inspect the intent for forecast data.
+            // The detail Activity called via intent.  Inspect the intent for stock data.
             Intent intent = getActivity().getIntent();
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
                 //adds stock name to intent
                 String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-                //this would be settting the text to the stock name but we will do that in the acutal app
-               // ((TextView) rootView.findViewById(R.id.stock_name))
-                      //  .setText(forecastStr);
             }
 
-
-
-
+            //return rootView
             return rootView;
         }
     }
