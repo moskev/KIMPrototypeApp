@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /*
 This activity will have training information including the training guide.
@@ -17,6 +18,12 @@ public class TrainingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
+
+        //create textView to store link in
+        TextView linkToTraining = (TextView) findViewById(R.id.trainingLink);
+        //link from training guide to upload the rest of things
+        linkToTraining.setText(R.string.training_drive_link);
+
     }
 
     @Override
@@ -40,8 +47,8 @@ public class TrainingActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));

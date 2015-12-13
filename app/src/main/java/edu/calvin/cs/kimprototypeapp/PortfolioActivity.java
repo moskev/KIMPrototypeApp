@@ -7,30 +7,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-/*
-This activity will have information about KIM's portfolio as a whole.
-It will be accessible through the home menu button and the login button.
+/* @author Lydia Cupery, Beka Agava, Andrew Groenewold, Moses Mangunrahardja
+ * This activity has information about KIM's portfolio as a whole.
+ * It is accessible through the home menu button and the login button and lead directly to HomeActivity.
  */
 
 public class PortfolioActivity extends Activity {
 
-    //create loginButton
+    //declare button to access individual stocks
     private Button individualStockButton;
 
-    //get ImageView to add kimLogo in
-    //private ImageView kimLogo;
 
+
+    /*  onCreate initializes the view
+    * @param savedInstanceState receives view from parent (in this case none)
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //initialize view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
-        individualStockButton =(Button)  findViewById(R.id.individualStockButton); //assign individual button
-        //kimLogo = (ImageView) findViewById(R.id.kimLogo);
-        //kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
-        //create onClick listener for login button bringing to HomeActivity
+        //initialize button to access individual stocks
+        individualStockButton =(Button)  findViewById(R.id.individualStockButton);
+
+
+        /* onClick listener for login button bringing to HomeActivity
+         * param onClickListener initialize and declare new onClickListener in the parameter
+         */
         individualStockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,9 +44,13 @@ public class PortfolioActivity extends Activity {
                 startActivity(home);
             }
         });
-
     }
 
+
+    /* onCreateOptionsMenu
+   * @param menu receives the menu
+   * @return always returns true
+   */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -49,8 +58,9 @@ public class PortfolioActivity extends Activity {
         return true;
     }
 
-    /*
-    This function opens the appropriate activity when a menu button is pushed.
+    /* Opens the appropriate activity when a menu button is pushed.
+    * @param item the specific item that was pushed
+    * @return always returns true
     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,8 +73,8 @@ public class PortfolioActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
@@ -77,7 +87,7 @@ public class PortfolioActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item); //added git
+        return super.onOptionsItemSelected(item); 
     }
 
 }

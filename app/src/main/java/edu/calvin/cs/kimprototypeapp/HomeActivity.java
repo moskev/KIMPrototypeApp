@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,26 +33,24 @@ import java.util.List;
  */
 public class HomeActivity extends Activity {
     String dbStocks;
+    Boolean finished;
+    Bundle instanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Bundle bundle = new Bundle();
-        bundle.putString("STOCKS", dbStocks);
+        instanceState = savedInstanceState;
+        //If SERVER running would execute this:
+        finished = false;
+        new LongRunningGetIO().execute();
 
-        PlaceholderFragment fragment = new PlaceholderFragment();
-        fragment.setArguments(bundle);
+
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, fragment) //starts placeholder fragment
-                    .commit();
-        }
-        //If SERVER running would execute this:
-        new LongRunningGetIO().execute();
     }
+
 
 //This class is mostly taken from lab09
 //It starts a task to query the database
@@ -118,10 +115,26 @@ private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
      */
     protected void onPostExecute(String results) {
         dbStocks = results;
+        finished = true;
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("STOCKS", dbStocks);
+
+        PlaceholderFragment fragment = new PlaceholderFragment();
+        fragment.setArguments(bundle);
+
+
+        if (instanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, fragment) //starts placeholder fragment
+                    .commit();
+
+
+        }
     }
 
-}
-
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,6 +142,9 @@ private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
+
+
+
 
     /*
     This function opens the appropriate activity when a menu button is pushed.
@@ -144,8 +160,8 @@ private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
@@ -187,7 +203,7 @@ public static class PlaceholderFragment extends Fragment {
        ///get string from server passed to Placeholder Fragment as an argument
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            stockString = bundle.getString("STRING", "AAPL\n" + "CSCO\n" + "EA\n" + "FB\n" + "GOOG\n"); //the 2nd param is the default, i.e. if it cannot
+            stockString = bundle.getString("STOCKS", null); //the 2nd param is the default, i.e. if it cannot
             //read in from the database
         }
 

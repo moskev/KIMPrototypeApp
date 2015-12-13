@@ -11,18 +11,18 @@ About activity will have information about KIM.
 It will be accessible through a menu button.
  */
 
-public class AboutActivity extends Activity {
+public class HelpActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_help);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_about, menu);
+        getMenuInflater().inflate(R.menu.menu_help, menu);
         return true;
     }
 
@@ -40,8 +40,8 @@ public class AboutActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));

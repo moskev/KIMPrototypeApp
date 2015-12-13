@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /*
 About activity will have a stock pitch on it.
@@ -17,6 +18,11 @@ public class StockPitchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_pitch);
+
+       //create textView to store link in
+        TextView linkToTraining = (TextView) findViewById(R.id.stockLink);
+        //upload link of training guide to the textview
+        linkToTraining.setText(R.string.stock_pitches_link);
     }
 
     @Override
@@ -40,8 +46,8 @@ public class StockPitchActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
