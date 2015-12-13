@@ -41,6 +41,7 @@ It will be accessible by clicking on a specific stock's name elsewhere in the pr
 
 public class DetailActivity extends Activity {
     private TextView currentPriceField;
+    String stockName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class DetailActivity extends Activity {
         Intent intent = getIntent();
 
         //get stockName from the intent
-        String stockName = intent.getStringExtra(Intent.EXTRA_TEXT);
+        stockName = intent.getStringExtra(Intent.EXTRA_TEXT);
 
         //when we receive info from the database, this will set the arrow according to code from the database
         ImageView arrowView = (ImageView) findViewById(R.id.arrowImage);
@@ -221,6 +222,7 @@ public class DetailActivity extends Activity {
 
     //Class to run a database query to get a stock's current price
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
+        int stockID = -1;
 
         /**
          * This method extracts text from the HTTP response entity.
@@ -262,7 +264,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
             //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stock/270";
+            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stocksIds";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -281,8 +283,90 @@ public class DetailActivity extends Activity {
          * @param results, the price
          */
         protected void onPostExecute(String results) {
+            String[] stockNameList = results.split("\\n");
+            for(int i=0; i<stockNameList.length; i+=2) {
+                if (stockNameList[i].equals(stockName)) {
+                    stockID = Integer.parseInt(stockNameList[i+1]);
+                }
+            }
             //Prints the label and price in the textbox
-            currentPriceField.setText("Database Price: " + results);
+            currentPriceField.setText("Database Price: " + stockID);
+            new InnerLongRunningGetIO().execute();
+        }
+
+        //Class to run a database query to get a stock's current price
+        private class InnerLongRunningGetIO extends AsyncTask<Void, Void, String> {
+
+            /**
+             * This method extracts text from the HTTP response entity.
+             *
+             * @return string, the current price
+             * @throws IllegalStateException
+             * @throws IOException
+             */
+            String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
+                InputStream in = entity.getContent();
+                StringBuilder out = new StringBuilder();
+                int n = 1;
+                while (n > 0) {
+                    byte[] b = new byte[4096];
+                    n = in.read(b);
+                    if (n > 0) out.append(new String(b, 0, n));
+                }
+                return out.toString();
+            }
+
+            /**
+             * This method issues the HTTP GET request.
+             *
+             * @param params and stuff
+             * @return text, the price
+             */
+            @Override
+            protected String doInBackground(Void... params) {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpContext localContext = new BasicHttpContext();
+            /*
+      This inner class sends an HTTP requests to the Monopoly RESTful service API. It uses an
+      asynchronous task to take the slow I/O off the main interface thread.
+      <p/>
+      It uses 10.0.2.2 to access localhost, see
+      http://developer.android.com/tools/devices/emulator.html#networkaddresses
+      <p/>
+      It retains the deprecated classes in order to remain backwards compatible for Android 4, see
+      http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
+     */
+                //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
+                String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stock/" + stockID;
+                HttpGet httpGet = new HttpGet(PEOPLE_URI);
+                String text;
+                try {
+                    HttpResponse response = httpClient.execute(httpGet, localContext);
+                    HttpEntity entity = response.getEntity();
+                    text = getASCIIContentFromEntity(entity);
+                } catch (Exception e) {
+                    return e.getLocalizedMessage();
+                }
+                return text;
+            }
+
+            /**
+             * The method takes the results of the request, when they arrive, and updates the interface.
+             *
+             * @param results, the price
+             */
+            protected void onPostExecute(String results) {
+                /*int stockID = -1;
+                String[] stockNameList = results.split("\\n");
+                for(int i=0; i<stockNameList.length; i+=2) {
+                    if (stockNameList[i].equals(stockName)) {
+                        stockID = Integer.parseInt(stockNameList[i+1]);
+                    }
+                }*/
+                //Prints the label and price in the textbox
+                currentPriceField.setText("Database Price: " + results);
+            }
+
         }
 
     }

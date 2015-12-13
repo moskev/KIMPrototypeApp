@@ -24,37 +24,47 @@ import org.apache.http.protocol.HttpContext;
 import java.io.IOException;
 import java.io.InputStream;
 
-/***
- * MainActivity is the first activity to appear on the screen.  It prompts the user for a username and password.
- * Need to know: read in username & password
- */
+/*  @author Lydia Cupery, Beka Agava, Andrew Groenewold, Moses Mangunrahardja
+*   MainActivity asks user for username & password and allows user to log in if field are correct
+*/
+
 public class MainActivity extends Activity implements View.OnClickListener{
+
     private Boolean isValidUsername = Boolean.FALSE;
 
-    //create loginButton and text fields
+    //declares screen components
     private Button loginButton;
     private TextView usernameField;
     private EditText usernameEnter, passwordEnter;
-
-    //get ImageView to add kimLogo in
     private ImageView kimLogo;
 
+   /*  onCreate initializes the view
+   * @param savedInstanceState receives view from parent (in this case none)
+   */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //set view
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        //needed for our app to talk to the server
+       //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
+        /**
+        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        startActivity(home);
+         **/
 
+
+        //provides internet permissions
         if (android.os.Build.VERSION.SDK_INT > 7) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             System.out.println("*** My thread is now configured to allow connection");
         }
 
-        setContentView(R.layout.activity_main);
-        //assign values to buttons, images, and fields
+
+        //initializes screen components
         loginButton=(Button) findViewById(R.id.loginbutton);
-        //usernameField=(TextView) findViewById(R.id.editText2);
         usernameEnter=(EditText) findViewById(R.id.editText2);
         passwordEnter=(EditText) findViewById(R.id.editText);
         kimLogo = (ImageView) findViewById(R.id.kimLogo);
@@ -64,25 +74,22 @@ public class MainActivity extends Activity implements View.OnClickListener{
         loginButton.setOnClickListener(this);
     }
 
-    //onClick listener for the login button
+    /** onClick responds to button by allowing user to go to HomeActivity if username and password is correct
+     * @param arg0 receives view from which click originated
+     */
     @Override
     public void onClick(View arg0) {
+        //login button is no longer clickable
         loginButton.setClickable(false);
-        //starts a server query to verify the username and password
 
-        //am executing this because server is NOT running
-        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        //startActivity(home);
-
-
-        //If SERVER running would execute this:
+        //execute password check in AsyncTask
         new LongRunningGetIO().execute();
-
-
     }
 
-    //This class is mostly taken from lab09
-    //It starts a task to query the database
+
+
+   /* LongRunningGetIO is an AsyncTask that allows user to go on to next screen is username and password is correct
+    */
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
 
         /**
@@ -148,8 +155,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             //the ability to use other usernames will be added later
             String testUsername = usernameEnter.getText().toString();
             String testPassword = passwordEnter.getText().toString();
-            //usernameField.setText(results);
-            //if(results.contains(testUsername)) {
+
             String[] usernameList = results.split("\\n");
             for(int i=0; i<usernameList.length; i+=2) {
                 if (usernameList[i].equals(testUsername)) {
@@ -184,6 +190,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onResume();
     }
 
+    /* onCreateOptionsMenu
+     * @param menu receives the menu
+     * @return always returns true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -191,8 +201,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         return true;
     }
 
-    /*
-    This function opens the appropriate activity when a menu button is pushed.
+    /* Opens the appropriate activity when a menu button is pushed.
+    * @param item the specific item that was pushed
+    * @return always returns true
     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -216,7 +227,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             return true;
         }
 
-        return super.onOptionsItemSelected(item); //added git
+        return super.onOptionsItemSelected(item);
     }
 
 }
