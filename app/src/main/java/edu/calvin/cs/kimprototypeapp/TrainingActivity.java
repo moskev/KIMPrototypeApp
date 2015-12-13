@@ -7,13 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-/*
-This activity will have training information including the training guide.
-It will be accessible through a menu button.
+/* @author Lydia Cupery, Beka Agava, Andrew Groenewold, Moses Mangunrahardja
+ * TrainingActivity gives a link to the training guide
  */
 
 public class TrainingActivity extends Activity {
 
+    /*  onCreate initializes the view
+    * @param savedInstanceState receives view from parent (in this case none)
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,11 @@ public class TrainingActivity extends Activity {
 
     }
 
+
+    /* onCreateOptionsMenu
+    * @param menu receives the menu
+    * @return always returns true
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -33,9 +40,10 @@ public class TrainingActivity extends Activity {
         return true;
     }
 
-    /*
-    This function opens the appropriate activity when a menu button is pushed.
-    */
+    /* Opens the appropriate activity when a menu button is pushed.
+   * @param item the specific item that was pushed
+   * @return always returns true
+   */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -61,7 +69,7 @@ public class TrainingActivity extends Activity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item); //added git
+        return super.onOptionsItemSelected(item);
     }
 
 }
