@@ -45,12 +45,8 @@
             android:label="Stock Pitch" >
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name=".HelpActivity"
             android:label="@string/title_activity_about" >
-        </activity>
-        <activity
-            android:name=".LogoutActivity"
-            android:label="Logout" >
         </activity>
     </application>
 
