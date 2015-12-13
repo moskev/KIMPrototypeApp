@@ -226,6 +226,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         } else if (id == R.id.action_stockPitch){
             startActivity(new Intent(this, StockPitchActivity.class));
             return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

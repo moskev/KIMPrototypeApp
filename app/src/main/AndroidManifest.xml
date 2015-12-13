@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".PortfolioActivity"
-            android:label="KIM Portfolio" >
+            android:label="KIM" >
         </activity>
         <activity
             android:name=".TrainingActivity"

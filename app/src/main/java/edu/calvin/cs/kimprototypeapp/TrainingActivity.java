@@ -67,6 +67,9 @@ public class TrainingActivity extends Activity {
         } else if (id == R.id.action_logout){
             startActivity(new Intent(this, MainActivity.class));
             return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
