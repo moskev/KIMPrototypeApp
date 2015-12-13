@@ -49,10 +49,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
        //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
-        /**
+
         Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
         startActivity(home);
-         **/
+
 
 
 
