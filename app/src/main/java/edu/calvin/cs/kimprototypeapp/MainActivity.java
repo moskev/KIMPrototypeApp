@@ -55,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
          **/
 
 
+
         //provides internet permissions
         if (android.os.Build.VERSION.SDK_INT > 7) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
