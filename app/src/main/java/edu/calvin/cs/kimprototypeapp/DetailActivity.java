@@ -23,7 +23,6 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -405,7 +404,7 @@ public class DetailActivity extends Activity {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
         } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));

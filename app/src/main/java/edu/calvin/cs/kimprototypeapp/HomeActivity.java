@@ -13,7 +13,6 @@ package edu.calvin.cs.kimprototypeapp;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.ListView;
-        import android.widget.Toast;
 
         import org.apache.http.HttpEntity;
         import org.apache.http.HttpResponse;
@@ -164,7 +163,7 @@ public class HomeActivity extends Activity {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
         } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));

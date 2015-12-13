@@ -11,7 +11,7 @@ About activity will have information about KIM.
 It will be accessible through a menu button.
  */
 
-public class AboutActivity extends Activity {
+public class HelpActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class AboutActivity extends Activity {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
         } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
