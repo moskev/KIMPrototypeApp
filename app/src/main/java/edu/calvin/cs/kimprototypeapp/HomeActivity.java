@@ -162,7 +162,7 @@ public class HomeActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
+        } else if (id == R.id.action_help){
             startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
