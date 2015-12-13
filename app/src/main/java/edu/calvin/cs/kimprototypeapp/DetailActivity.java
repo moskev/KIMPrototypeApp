@@ -40,7 +40,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class DetailActivity extends Activity {
 
     //global variables
-    private TextView currentPriceField;
+    private TextView currentPriceField, sharesOwnedField, sectorField, buyPriceField, tickerField;
     String stockName;
 
     /*  onCreate initializes the view
@@ -72,13 +72,19 @@ public class DetailActivity extends Activity {
         TextView priceEarings = (TextView) findViewById(R.id.PETextDisplay);
         TextView companyName = (TextView) findViewById(R.id.stockName);
         currentPriceField = (TextView) findViewById(R.id.targetPriceDisplay);
+        sharesOwnedField = (TextView) findViewById(R.id.sharesOwnedDisplay);
+        sectorField = (TextView) findViewById(R.id.sectorText);
+        buyPriceField = (TextView) findViewById(R.id.buyPriceDisplay);
+        tickerField = (TextView) findViewById(R.id.tickerDisplay);
+
+        tickerField.setText(stockName);
 
         //pass the textboxes and stock name as parameters to Async Task
         MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView, companyName);
         //execute Async task
         myTask1.execute(stockName);
 
-        currentPriceField.setText("Hi!");
+        //currentPriceField.setText("Hi!");
 
        new LongRunningGetIO().execute();
     }
@@ -301,7 +307,7 @@ public class DetailActivity extends Activity {
             //Prints the label and price in the textbox
             //currentPriceField.setText("Database Price: ");
             //currentPriceField.setText("Database Price: " + stockID);
-            //new InnerLongRunningGetIO().execute();
+            new InnerLongRunningGetIO().execute();
         }
 
         //Class to run a database query to get a stock's current price
@@ -366,15 +372,12 @@ public class DetailActivity extends Activity {
              * @param results, the price
              */
             protected void onPostExecute(String results) {
-                /*int stockID = -1;
                 String[] stockNameList = results.split("\\n");
-                for(int i=0; i<stockNameList.length; i+=2) {
-                    if (stockNameList[i].equals(stockName)) {
-                        stockID = Integer.parseInt(stockNameList[i+1]);
-                    }
-                }*/
                 //Prints the label and price in the textbox
-                currentPriceField.setText("Database Price: " + results);
+                currentPriceField.setText(stockNameList[0]);
+                buyPriceField.setText(stockNameList[1]);
+                sharesOwnedField.setText(stockNameList[2]);
+                sectorField.setText(stockNameList[3] + " Sector");
             }
 
         }
