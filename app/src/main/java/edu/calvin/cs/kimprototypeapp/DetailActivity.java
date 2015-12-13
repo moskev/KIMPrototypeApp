@@ -70,12 +70,15 @@ public class DetailActivity extends Activity {
         //Declare textViews and set them to the correct place on the screen
         TextView lastTrade = (TextView) findViewById(R.id.CurrentPriceDisplay);
         TextView priceEarings = (TextView) findViewById(R.id.PETextDisplay);
-        TextView companyName = (TextView) findViewById(R.id.stock_name);
+        TextView companyName = (TextView) findViewById(R.id.stockName);
+        currentPriceField = (TextView) findViewById(R.id.targetPriceDisplay);
 
         //pass the textboxes and stock name as parameters to Async Task
         MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView, companyName);
         //execute Async task
         myTask1.execute(stockName);
+
+        currentPriceField.setText("Hi!");
 
        new LongRunningGetIO().execute();
     }
@@ -296,8 +299,9 @@ public class DetailActivity extends Activity {
                 }
             }
             //Prints the label and price in the textbox
-            currentPriceField.setText("Database Price: " + stockID);
-            new InnerLongRunningGetIO().execute();
+            //currentPriceField.setText("Database Price: ");
+            //currentPriceField.setText("Database Price: " + stockID);
+            //new InnerLongRunningGetIO().execute();
         }
 
         //Class to run a database query to get a stock's current price
