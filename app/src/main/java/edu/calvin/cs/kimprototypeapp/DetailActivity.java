@@ -86,7 +86,7 @@ public class DetailActivity extends Activity {
 
         //currentPriceField.setText("Hi!");
 
-       new LongRunningGetIO().execute();
+       //new LongRunningGetIO().execute();
     }
 
 
@@ -421,6 +421,9 @@ public class DetailActivity extends Activity {
             return true;
         } else if (id == R.id.action_logout){
             startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
             return true;
         }
 
