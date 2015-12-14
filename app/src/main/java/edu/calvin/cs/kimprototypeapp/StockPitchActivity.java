@@ -54,8 +54,8 @@ public class StockPitchActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
@@ -65,6 +65,9 @@ public class StockPitchActivity extends Activity {
             return true;
         } else if (id == R.id.action_logout){
             startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
             return true;
         }
 

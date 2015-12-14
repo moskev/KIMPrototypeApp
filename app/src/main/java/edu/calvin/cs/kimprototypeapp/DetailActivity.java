@@ -23,7 +23,6 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +40,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class DetailActivity extends Activity {
 
     //global variables
-    private TextView currentPriceField;
+    private TextView currentPriceField, sharesOwnedField, sectorField, buyPriceField, tickerField;
     String stockName;
 
     /*  onCreate initializes the view
@@ -71,14 +70,23 @@ public class DetailActivity extends Activity {
         //Declare textViews and set them to the correct place on the screen
         TextView lastTrade = (TextView) findViewById(R.id.CurrentPriceDisplay);
         TextView priceEarings = (TextView) findViewById(R.id.PETextDisplay);
-        TextView companyName = (TextView) findViewById(R.id.stock_name);
+        TextView companyName = (TextView) findViewById(R.id.stockName);
+        currentPriceField = (TextView) findViewById(R.id.targetPriceDisplay);
+        sharesOwnedField = (TextView) findViewById(R.id.sharesOwnedDisplay);
+        sectorField = (TextView) findViewById(R.id.sectorText);
+        buyPriceField = (TextView) findViewById(R.id.buyPriceDisplay);
+        tickerField = (TextView) findViewById(R.id.tickerDisplay);
+
+        tickerField.setText(stockName);
 
         //pass the textboxes and stock name as parameters to Async Task
         MyTask myTask1 = new MyTask(lastTrade, priceEarings, arrowView, companyName);
         //execute Async task
         myTask1.execute(stockName);
 
-       new LongRunningGetIO().execute();
+        //currentPriceField.setText("Hi!");
+
+       //new LongRunningGetIO().execute();
     }
 
 
@@ -297,7 +305,8 @@ public class DetailActivity extends Activity {
                 }
             }
             //Prints the label and price in the textbox
-            currentPriceField.setText("Database Price: " + stockID);
+            //currentPriceField.setText("Database Price: ");
+            //currentPriceField.setText("Database Price: " + stockID);
             new InnerLongRunningGetIO().execute();
         }
 
@@ -363,15 +372,12 @@ public class DetailActivity extends Activity {
              * @param results, the price
              */
             protected void onPostExecute(String results) {
-                /*int stockID = -1;
                 String[] stockNameList = results.split("\\n");
-                for(int i=0; i<stockNameList.length; i+=2) {
-                    if (stockNameList[i].equals(stockName)) {
-                        stockID = Integer.parseInt(stockNameList[i+1]);
-                    }
-                }*/
                 //Prints the label and price in the textbox
-                currentPriceField.setText("Database Price: " + results);
+                currentPriceField.setText(stockNameList[0]);
+                buyPriceField.setText(stockNameList[1]);
+                sharesOwnedField.setText(stockNameList[2]);
+                sectorField.setText(stockNameList[3] + " Sector");
             }
 
         }
@@ -404,8 +410,8 @@ public class DetailActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
@@ -415,6 +421,9 @@ public class DetailActivity extends Activity {
             return true;
         } else if (id == R.id.action_logout){
             startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
             return true;
         }
 

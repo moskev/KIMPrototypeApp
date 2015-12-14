@@ -1,15 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <!--The same home, about, training, and stockpitch buttons that most of the other pages have -->
+    <!--The same home, training, stockpitch, adminTools, help, and logout buttons that most of the other pages have -->
+    <item android:id="@+id/action_stocks" android:title="@string/Stocks"
+        android:orderInCategory="100" android:showAsAction="always" />
+    <item android:id="@+id/menu_label" android:title="@string/menu"
+        android:orderInCategory="100" android:showAsAction="always" />
     <item android:id="@+id/action_home" android:title="@string/action_home"
-        android:orderInCategory="100" android:showAsAction="never" />
-    <item android:id="@+id/action_about" android:title="@string/action_about"
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/action_training" android:title="@string/action_training"
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/action_stockPitch" android:title="@string/action_stockPitch"
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/action_adminTools" android:title="@string/action_adminTools"
+        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/action_help" android:title="@string/action_help"
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/action_logout" android:title="@string/action_logout"
         android:orderInCategory="100" android:showAsAction="never" />

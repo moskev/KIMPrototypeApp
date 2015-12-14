@@ -15,15 +15,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PE Ratio Text"
-        android:id="@+id/PETextDisplay"
-        android:layout_gravity="center_vertical"
-        android:layout_alignTop="@+id/currentPriceView"
-        android:layout_alignEnd="@+id/CurrentPriceDisplay" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Current Price Text"
         android:id="@+id/CurrentPriceDisplay"
         android:layout_gravity="bottom"
@@ -95,6 +86,53 @@
         android:text="Stock Name Text"
         android:id="@+id/stockName"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/currentPriceView"/>
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sector"
+        android:id="@+id/sectorText"
+        android:layout_below="@+id/stockName"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Bought for"
+        android:id="@+id/buyPriceLabel"
+        android:layout_below="@+id/sharesText"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price bought at"
+        android:id="@+id/buyPriceDisplay"
+        android:layout_gravity="bottom"
+        android:textSize="20dp"
+        android:layout_below="@+id/sharesOwnedDisplay"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ticker"
+        android:id="@+id/tickerDisplay"
+        android:layout_below="@+id/sectorText"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PE Ratio Text"
+        android:id="@+id/PETextDisplay"
+        android:layout_gravity="bottom"
+        android:textSize="20dp"
+        android:layout_above="@+id/CurrentPriceDisplay"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

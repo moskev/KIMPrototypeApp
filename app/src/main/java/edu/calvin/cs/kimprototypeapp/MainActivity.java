@@ -49,10 +49,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
        //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
-        /**
-        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        startActivity(home);
-         **/
+
+        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        //startActivity(home);
+
 
 
 
@@ -217,14 +217,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
             return true;
         } else if (id == R.id.action_stockPitch){
             startActivity(new Intent(this, StockPitchActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
             return true;
         }
 

@@ -16,8 +16,11 @@ import android.widget.ImageView;
 
 public class PortfolioActivity extends Activity {
 
-    //declare button to access individual stocks
+    //declares screen components
     private Button individualStockButton;
+    private Button stockPitchButton;
+    private Button trainingGuideButton;
+    private ImageView kimLogo;
 
 
 
@@ -30,11 +33,14 @@ public class PortfolioActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
 
-        //initialize button to access individual stocks
+        //initializes screen components
         individualStockButton =(Button)  findViewById(R.id.individualStockButton);
+        stockPitchButton =(Button)  findViewById(R.id.stockPitch);
+        trainingGuideButton =(Button)  findViewById(R.id.trainingGuide);
+        kimLogo = (ImageView) findViewById(R.id.kimLogo);
+        kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
-
-        /* onClick listener for login button bringing to HomeActivity
+        /* onClick listener for individualStock button bringing to HomeActivity
          * param onClickListener initialize and declare new onClickListener in the parameter
          */
         individualStockButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +48,30 @@ public class PortfolioActivity extends Activity {
             public void onClick(View view) {
                 //create and start new Intent
                 Intent home = new Intent(PortfolioActivity.this, HomeActivity.class);
+                startActivity(home);
+            }
+        });
+
+        /* onClick listener for stockPitch button bringing to HomeActivity
+         * param onClickListener initialize and declare new onClickListener in the parameter
+         */
+        stockPitchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //create and start new Intent
+                Intent home = new Intent(PortfolioActivity.this, StockPitchActivity.class);
+                startActivity(home);
+            }
+        });
+
+        /* onClick listener for stockPitch button bringing to HomeActivity
+         * param onClickListener initialize and declare new onClickListener in the parameter
+         */
+        trainingGuideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //create and start new Intent
+                Intent home = new Intent(PortfolioActivity.this, TrainingActivity.class);
                 startActivity(home);
             }
         });
@@ -74,8 +104,8 @@ public class PortfolioActivity extends Activity {
         if (id == R.id.action_home) {
             startActivity(new Intent(this, PortfolioActivity.class));
             return true;
-        } else if (id == R.id.action_about){
-            startActivity(new Intent(this, AboutActivity.class));
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
             return true;
         } else if (id == R.id.action_training){
             startActivity(new Intent(this, TrainingActivity.class));
@@ -85,6 +115,12 @@ public class PortfolioActivity extends Activity {
             return true;
         } else if (id == R.id.action_logout){
             startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
             return true;
         }
 
