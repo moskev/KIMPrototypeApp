@@ -262,22 +262,17 @@ public class DetailActivity extends Activity {
         /**
          * This method issues the HTTP GET request.
          *
-         * @param params and stuff
+         * @param params are empty in this case
          * @return text, the price
          */
         @Override
         protected String doInBackground(Void... params) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
-            /*
+       /*
       This inner class sends an HTTP requests to the Monopoly RESTful service API. It uses an
       asynchronous task to take the slow I/O off the main interface thread.
-      <p/>
-      It uses 10.0.2.2 to access localhost, see
-      http://developer.android.com/tools/devices/emulator.html#networkaddresses
-      <p/>
-      It retains the deprecated classes in order to remain backwards compatible for Android 4, see
-      http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
+      It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
             //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
             String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocksIds";
@@ -343,15 +338,10 @@ public class DetailActivity extends Activity {
             protected String doInBackground(Void... params) {
                 HttpClient httpClient = new DefaultHttpClient();
                 HttpContext localContext = new BasicHttpContext();
-            /*
+               /*
       This inner class sends an HTTP requests to the Monopoly RESTful service API. It uses an
       asynchronous task to take the slow I/O off the main interface thread.
-      <p/>
-      It uses 10.0.2.2 to access localhost, see
-      http://developer.android.com/tools/devices/emulator.html#networkaddresses
-      <p/>
-      It retains the deprecated classes in order to remain backwards compatible for Android 4, see
-      http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
+      It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
                 //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
                 String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stock/" + stockID;

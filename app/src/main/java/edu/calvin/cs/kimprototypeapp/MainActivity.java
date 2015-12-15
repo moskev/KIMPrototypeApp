@@ -48,13 +48,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Intent intent = new Intent(MainActivity.this, DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "GS");
-        //startActivity(intent);
 
-        //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
 
-        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        //startActivity(home);
+        //allows it to jump right to the next screen because the server is not working, comment these 2 lines out when server is running
+        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        startActivity(home);
 
 
 
@@ -97,8 +95,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
 
         /**
-         * This method extracts text from the HTTP response entity.
-         *
+         * This method extracts text from the HTTP response entity.         *
          * @return string, the username from the server
          * @throws IllegalStateException
          * @throws IOException
@@ -116,8 +113,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
 
         /**
-         * This method issues the HTTP GET request.
-         *
+         * This method issues the HTTP GET request.         *
          * @param params none
          * @return text, the result of the query
          */
@@ -128,12 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             /*
       This inner class sends an HTTP requests to the Monopoly RESTful service API. It uses an
       asynchronous task to take the slow I/O off the main interface thread.
-      <p/>
-      It uses 10.0.2.2 to access localhost, see
-      http://developer.android.com/tools/devices/emulator.html#networkaddresses
-      <p/>
-      It retains the deprecated classes in order to remain backwards compatible for Android 4, see
-      http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
+      It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
             String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
@@ -149,20 +140,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
 
         /**
-         * The method takes the results of the request, when they arrive, and updates the interface.
-         *
+         * The method takes the results of the request, when they arrive, decides rather the user can login        *
          * @param results (of the query)
          */
         protected void onPostExecute(String results) {
             //Checks if the username is the first username in the database
-            //I was having trouble with string comparisons, so
-            //the ability to use other usernames will be added later
+
+            //reads in the user input
             String testUsername = usernameEnter.getText().toString();
             String testPassword = passwordEnter.getText().toString();
 
+            //splits up the username list and checks to see if the username entered by the user matches any of them
             String[] usernameList = results.split("\\n");
             for(int i=0; i<usernameList.length; i+=2) {
                 if (usernameList[i].equals(testUsername)) {
+                    //if username matches then check to see if password is also valid
                     if(usernameList[i+1].equals(testPassword)) {
                         isValidUsername = true;
                     }
@@ -173,13 +165,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
                 startActivity(home);
             }
-            /*else{
-             //print out toast if is INVALID username
-                //however, since server does not function on laptop, in this case also allow user to continue
-                Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-                startActivity(home);
-            }*/
+
+            //set isValidUsername to false if it does not match anything in the server
             isValidUsername = false;
+
+            //set screen to default values
             loginButton.setClickable(true);
             usernameEnter.setText("");
             passwordEnter.setText("");
@@ -187,6 +177,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }
 
+    /* onResume sets login screen to defaults
+ */
     @Override
     protected void onResume() {
         usernameEnter.setText("");
