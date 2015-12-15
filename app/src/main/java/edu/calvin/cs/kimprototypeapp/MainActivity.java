@@ -38,9 +38,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private EditText usernameEnter, passwordEnter;
     private ImageView kimLogo;
 
-   /*  onCreate initializes the view
-   * @param savedInstanceState receives view from parent (in this case none)
-   */
+    /*  onCreate initializes the view
+    * @param savedInstanceState receives view from parent (in this case none)
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
+        //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
 
         //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
         //startActivity(home);
@@ -89,8 +89,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 
-   /* LongRunningGetIO is an AsyncTask that allows user to go on to next screen is username and password is correct
-    */
+    /* LongRunningGetIO is an AsyncTask that allows user to go on to next screen is username and password is correct
+     */
     private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
 
         /**
@@ -132,7 +132,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {

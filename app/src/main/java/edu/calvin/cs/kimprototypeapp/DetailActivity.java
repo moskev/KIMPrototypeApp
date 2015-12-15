@@ -84,9 +84,9 @@ public class DetailActivity extends Activity {
         //execute Async task
         myTask1.execute(stockName);
 
-        //currentPriceField.setText("Hi!");
 
-       //new LongRunningGetIO().execute();
+
+        new LongRunningGetIO().execute();
     }
 
 
@@ -149,44 +149,44 @@ public class DetailActivity extends Activity {
 
             try {
                 //convert the input stream from the particular url into a Document
-               final InputStream stream = new URL(url.toString()).openStream();
-               final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-               documentBuilderFactory.setIgnoringComments(true);
-               final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-               final Document document = documentBuilder.parse(stream);
-               document.getDocumentElement().normalize();
+                final InputStream stream = new URL(url.toString()).openStream();
+                final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                documentBuilderFactory.setIgnoringComments(true);
+                final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                final Document document = documentBuilder.parse(stream);
+                document.getDocumentElement().normalize();
 
-               //elementLeg reads from results
-               final Element elementLeg = (Element) document.getElementsByTagName("results").item(0);
+                //elementLeg reads from results
+                final Element elementLeg = (Element) document.getElementsByTagName("results").item(0);
 
-              //get particular results, in this case LastTradePrice, PERation, Change and Name
-               final Element lastTradeElement = (Element) elementLeg.getElementsByTagName("LastTradePriceOnly").item(0);
-               final Element priceEarningElement = (Element) elementLeg.getElementsByTagName("PERatio").item(0);
-               final Element changeElement = (Element) elementLeg.getElementsByTagName("Change").item(0);
-               final Element nameElement = (Element) elementLeg.getElementsByTagName("Name").item(0);
+                //get particular results, in this case LastTradePrice, PERation, Change and Name
+                final Element lastTradeElement = (Element) elementLeg.getElementsByTagName("LastTradePriceOnly").item(0);
+                final Element priceEarningElement = (Element) elementLeg.getElementsByTagName("PERatio").item(0);
+                final Element changeElement = (Element) elementLeg.getElementsByTagName("Change").item(0);
+                final Element nameElement = (Element) elementLeg.getElementsByTagName("Name").item(0);
 
-               //get the content of these elements and convert them to doubles
-               String lastTradePrice = lastTradeElement.getTextContent();
-               String priceEarning = priceEarningElement.getTextContent();
-               String amountChanged = changeElement.getTextContent();
-               companyName = nameElement.getTextContent();
-               lastTradePriceDouble = Double.parseDouble(lastTradePrice);
-               priceEarningsDouble = Double.parseDouble(priceEarning);
-               amountChangeDouble = Double.parseDouble(amountChanged);
+                //get the content of these elements and convert them to doubles
+                String lastTradePrice = lastTradeElement.getTextContent();
+                String priceEarning = priceEarningElement.getTextContent();
+                String amountChanged = changeElement.getTextContent();
+                companyName = nameElement.getTextContent();
+                lastTradePriceDouble = Double.parseDouble(lastTradePrice);
+                priceEarningsDouble = Double.parseDouble(priceEarning);
+                amountChangeDouble = Double.parseDouble(amountChanged);
 
-               //look to see if the stock went up or down
-               if (amountChangeDouble>=0){
-                   upOrDown = "up";
-               }
-               else {
-                   upOrDown = "down";
-               }
-          }
-           //catch malformedURL error
-           catch (MalformedURLException e){
-               Log.i("input stream error", e.getMessage());
-           }
-           //catch other errors
+                //look to see if the stock went up or down
+                if (amountChangeDouble>=0){
+                    upOrDown = "up";
+                }
+                else {
+                    upOrDown = "down";
+                }
+            }
+            //catch malformedURL error
+            catch (MalformedURLException e){
+                Log.i("input stream error", e.getMessage());
+            }
+            //catch other errors
             catch (Exception e){
                 Log.i("input stream error", e.getMessage() );
             }
@@ -279,7 +279,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
             //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stocksIds";
+            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocksIds";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -353,7 +353,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
                 //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-                String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stock/" + stockID;
+                String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stock/" + stockID;
                 HttpGet httpGet = new HttpGet(PEOPLE_URI);
                 String text;
                 try {
@@ -374,10 +374,10 @@ public class DetailActivity extends Activity {
             protected void onPostExecute(String results) {
                 String[] stockNameList = results.split("\\n");
                 //Prints the label and price in the textbox
-                currentPriceField.setText(stockNameList[2]);
+                currentPriceField.setText(stockNameList[0]);
                 buyPriceField.setText(stockNameList[1]);
-                sharesOwnedField.setText(stockNameList[3]);
-                sectorField.setText(stockNameList[0] + " Sector");
+                sharesOwnedField.setText(stockNameList[2]);
+                sectorField.setText(stockNameList[3] + " Sector");
             }
 
         }
