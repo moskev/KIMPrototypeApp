@@ -192,7 +192,8 @@ public class DetailActivity extends Activity {
             }
 
             //put the values received from Yahoo API in the valuesToBeReturnedLIst
-            valuesToBeReturned.add(lastTradePriceDouble.toString());
+            //valuesToBeReturned.add(lastTradePriceDouble.toString());
+            valuesToBeReturned.add(String.format("%.2f", lastTradePriceDouble));
             valuesToBeReturned.add(priceEarningsDouble.toString());
             valuesToBeReturned.add(upOrDown); //add string saying whether it went up or down
             valuesToBeReturned.add(companyName);
@@ -279,7 +280,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
             //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocksIds";
+            String PEOPLE_URI = "http://153.106.116.74:9998/kimSQL/stocksIds";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -305,7 +306,7 @@ public class DetailActivity extends Activity {
                 }
             }
             //Prints the label and price in the textbox
-            //currentPriceField.setText("Database Price: ");
+            //currentPriceField.setText(results);
             //currentPriceField.setText("Database Price: " + stockID);
             new InnerLongRunningGetIO().execute();
         }
@@ -353,7 +354,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
                 //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-                String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stock/" + stockID;
+                String PEOPLE_URI = "http://153.106.116.74:9998/kimSQL/stock/" + stockID;
                 HttpGet httpGet = new HttpGet(PEOPLE_URI);
                 String text;
                 try {
@@ -374,10 +375,10 @@ public class DetailActivity extends Activity {
             protected void onPostExecute(String results) {
                 String[] stockNameList = results.split("\\n");
                 //Prints the label and price in the textbox
-                currentPriceField.setText(stockNameList[0]);
+                currentPriceField.setText(stockNameList[2]);
                 buyPriceField.setText(stockNameList[1]);
-                sharesOwnedField.setText(stockNameList[2]);
-                sectorField.setText(stockNameList[3] + " Sector");
+                sharesOwnedField.setText(stockNameList[3]);
+                sectorField.setText(stockNameList[0] + " Sector");
             }
 
         }
