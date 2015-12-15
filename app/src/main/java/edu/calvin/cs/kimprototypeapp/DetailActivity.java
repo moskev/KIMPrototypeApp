@@ -280,7 +280,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
             //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-            String PEOPLE_URI = "http://153.106.116.74:9998/kimSQL/stocksIds";
+            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocksIds";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -354,7 +354,7 @@ public class DetailActivity extends Activity {
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
                 //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-                String PEOPLE_URI = "http://153.106.116.74:9998/kimSQL/stock/" + stockID;
+                String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stock/" + stockID;
                 HttpGet httpGet = new HttpGet(PEOPLE_URI);
                 String text;
                 try {
