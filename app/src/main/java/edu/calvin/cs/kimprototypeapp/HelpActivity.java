@@ -3,8 +3,10 @@ package edu.calvin.cs.kimprototypeapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /*
 About activity will have information about KIM.
@@ -17,6 +19,9 @@ public class HelpActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+
+        TextView helpTextView = (TextView) findViewById(R.id.helpText);
+        helpTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override
