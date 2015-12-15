@@ -374,10 +374,10 @@ public class DetailActivity extends Activity {
             protected void onPostExecute(String results) {
                 String[] stockNameList = results.split("\\n");
                 //Prints the label and price in the textbox
-                currentPriceField.setText(stockNameList[0]);
+                currentPriceField.setText(stockNameList[2]);
                 buyPriceField.setText(stockNameList[1]);
-                sharesOwnedField.setText(stockNameList[2]);
-                sectorField.setText(stockNameList[3] + " Sector");
+                sharesOwnedField.setText(stockNameList[3]);
+                sectorField.setText(stockNameList[0] + " Sector");
             }
 
         }
