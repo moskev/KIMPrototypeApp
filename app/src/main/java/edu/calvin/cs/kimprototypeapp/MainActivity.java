@@ -48,8 +48,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "GS");
-        startActivity(intent);
+        //Intent intent = new Intent(MainActivity.this, DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "GS");
+        //startActivity(intent);
 
         //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
 
