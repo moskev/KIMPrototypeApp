@@ -1,32 +1,32 @@
 package edu.calvin.cs.kimprototypeapp;
 
-        import android.app.Activity;
-        import android.app.Fragment;
-        import android.content.Intent;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.view.LayoutInflater;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.ListView;
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-        import org.apache.http.HttpEntity;
-        import org.apache.http.HttpResponse;
-        import org.apache.http.client.HttpClient;
-        import org.apache.http.client.methods.HttpGet;
-        import org.apache.http.impl.client.DefaultHttpClient;
-        import org.apache.http.protocol.BasicHttpContext;
-        import org.apache.http.protocol.HttpContext;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.util.ArrayList;
-        import java.util.Arrays;
-        import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /* @author Lydia Cupery, Beka Agava, Andrew Groenewold, Moses Mangunrahardja
  * HomeActivity has a list of the current stocks which, when clicked on, lead to DetailActivity specific to that stock
@@ -96,7 +96,7 @@ public class HomeActivity extends Activity {
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/stocks";
+            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocks";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
