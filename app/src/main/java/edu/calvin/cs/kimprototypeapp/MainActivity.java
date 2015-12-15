@@ -48,6 +48,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "GS");
+        startActivity(intent);
+
         //allows it to jump right to the next screen because the server is not working, COMMENT THESE TWO LINES OUT WHEN SERVER IS RUNNIG
 
         //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
@@ -132,7 +135,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://10.0.2.2:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {

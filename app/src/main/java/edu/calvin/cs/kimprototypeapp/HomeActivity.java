@@ -96,7 +96,7 @@ public class HomeActivity extends Activity {
       It retains the deprecated classes in order to remain backwards compatible for Android 4, see
       http://stackoverflow.com/questions/29150184/httpentity-is-deprecated-on-android-now-whats-the-alternative
      */
-            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocks";
+            String PEOPLE_URI = "http://10.0.0.2:9998/kimSQL/stocks";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
