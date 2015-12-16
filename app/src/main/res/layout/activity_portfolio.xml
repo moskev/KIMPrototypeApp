@@ -7,11 +7,12 @@
     tools:context="edu.calvin.cs.kimprototypeapp.PortfolioActivity">
 
 
-    <!-- <TextView android:text="@string/editPortfolioText" android:layout_width="wrap_content"
+     <TextView android:text="@string/editPortfolioText" android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:id="@+id/textView" /> />
-
-     <TextView android:text="@string/portfolioPreview" android:layout_width="wrap_content"
+         android:id="@+id/textView"
+               android:layout_above="@+id/individualStockButton"
+               android:layout_alignStart="@+id/individualStockButton"/>
+    <!-- <TextView android:text="@string/portfolioPreview" android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_below="@+id/textView"
          android:layout_alignParentEnd="true"
