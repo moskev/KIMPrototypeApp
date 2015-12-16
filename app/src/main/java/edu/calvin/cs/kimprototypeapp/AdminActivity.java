@@ -47,7 +47,8 @@ public class AdminActivity extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //create and start new Intent
+                //execute password check in AsyncTask
+                new LongRunningPostIO().execute();
 
             }
         });
