@@ -7,24 +7,13 @@
     tools:context="edu.calvin.cs.kimprototypeapp.AdminActivity">
 
 
-    <TextView android:text="@string/editPortfolioText" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_above="@+id/individualStockButton"
-        android:layout_alignStart="@+id/individualStockButton"/>
-    <!-- <TextView android:text="@string/portfolioPreview" android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/textView"
-         android:layout_alignParentEnd="true"
-         android:layout_marginTop="64dp"
-         android:id="@+id/textView2" /> /> -->
 
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/kimLogo"
-        android:layout_above="@+id/individualStockButton"
+        android:layout_above="@+id/newStocks"
         android:layout_marginStart="18dp"
         android:layout_marginBottom="35dp"
         android:layout_alignParentTop="true"
@@ -35,28 +24,18 @@
         style="@style/btnStyleGenoa"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:text="@string/action_training"
-        android:id="@+id/trainingGuide"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/individualStockButton"
+        android:text="@string/action_newAccount"
+        android:id="@+id/newAccount"
+        android:layout_marginTop="59dp"
+        android:layout_below="@+id/newStocks"
         android:layout_centerHorizontal="true" />
 
     <Button
         style="@style/btnStyleGenoa"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:text="@string/action_stockPitch"
-        android:id="@+id/stockPitch"
-        android:layout_marginTop="52dp"
-        android:layout_below="@+id/trainingGuide"
-        android:layout_alignStart="@+id/individualStockButton" />
-
-    <Button
-        style="@style/btnStyleGenoa"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:text="@string/action_stocks"
-        android:id="@+id/individualStockButton"
+        android:text="@string/action_newStocks"
+        android:id="@+id/newStocks"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
