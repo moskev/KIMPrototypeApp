@@ -107,4 +107,6 @@ The detailed steps in this section show you how to:\n
     <string name="title_activity_log_out">StockPitchActivity</string>
     <string name="title_activity_logout">LogoutActivity</string>
     <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_account_post">AccountPostActivity</string>
+    <string name="title_activity_stock_post">StockPostActivity</string>
 </resources>
