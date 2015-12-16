@@ -91,7 +91,7 @@ public class HomeActivity extends Activity {
       asynchronous task to take the slow I/O off the main interface thread.
       It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
-            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/stocks";
+            String PEOPLE_URI = "http://153.106.116.65:9998/kimSQL/stocks";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {

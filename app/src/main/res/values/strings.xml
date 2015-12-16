@@ -4,6 +4,7 @@
     <string name="Welcome">Welcome!</string>
     <string name="menu">Menu</string>
     <string name="action_home">Home</string>
+    <string name="addAccount">Add or change this account</string>
     <string name="action_help">Help</string>
     <string name="action_stocks">Stocks</string>
     <string name="action_settings">Settings</string>
