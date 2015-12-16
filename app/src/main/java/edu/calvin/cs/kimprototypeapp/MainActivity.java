@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
         //allows it to jump right to the next screen because the server is not working, comment these 2 lines out when server is running
-        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        startActivity(home);
+        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        //startActivity(home);
 
 
         //provides internet permissions
