@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".PortfolioActivity"
-            android:label="KIM" >
+            android:label="KIM Home" >
         </activity>
         <activity
             android:name=".TrainingActivity"
@@ -44,15 +44,15 @@
         </activity>
         <activity
             android:name=".HelpActivity"
-            android:label="@string/title_activity_help" >
+            android:label="Help" >
         </activity>
         <activity
             android:name=".AccountPostActivity"
-            android:label="@string/title_activity_account_post" >
+            android:label="Add Account" >
         </activity>
         <activity
             android:name=".StockPostActivity"
-            android:label="@string/title_activity_stock_post" >
+            android:label="Add Stock" >
         </activity>
     </application>
 
