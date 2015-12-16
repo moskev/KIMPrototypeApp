@@ -55,7 +55,7 @@ public class AdminActivity extends Activity {
     }
 
     //URI for the POST method for adding new climbs to the database
-    private static String NEW_ACCOUNT_URI = "http://153.106.116.65:9998/kimSQL/accountPost";
+    private static String NEW_ACCOUNT_URI = "http://153.106.116.90:9998/kimSQL/accountPost";
 
     /**
      * LongRunningGetIO class contains the data necessary in order to do an IO task (GET, POST...).
@@ -123,7 +123,23 @@ public class AdminActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_home) {
+            startActivity(new Intent(this, PortfolioActivity.class));
+            return true;
+        } else if (id == R.id.action_help){
+            startActivity(new Intent(this, HelpActivity.class));
+            return true;
+        } else if (id == R.id.action_training){
+            startActivity(new Intent(this, TrainingActivity.class));
+            return true;
+        } else if (id == R.id.action_stockPitch){
+            startActivity(new Intent(this, StockPitchActivity.class));
+            return true;
+        } else if (id == R.id.action_logout){
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (id == R.id.action_stocks){
+            startActivity(new Intent(this, HomeActivity.class));
             return true;
         }
 
