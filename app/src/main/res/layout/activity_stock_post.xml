@@ -3,24 +3,23 @@
     android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".AccountPostActivity"
-    android:id="@+id/accountPostActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".StockPostActivity"
+    android:id="@+id/stockPostActivity">
 
 
 
 
     <EditText
-        android:hint="New Account Password"
+        android:hint="Enter the new stock ticker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_below="@+id/kimLogo"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="68dp"/>
+        android:layout_above="@+id/editText4"
+        android:layout_centerHorizontal="true" />
 
     <EditText
-        android:hint="New Account Username"
+        android:hint="Enter the sell price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
@@ -32,21 +31,34 @@
         style="@style/btnStyleGenoa"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="@string/addAccount"
-        android:id="@+id/loginbutton"
+        android:text="Press to add the stocks to the server"
+        android:id="@+id/postbutton"
         android:layout_marginBottom="74dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <EditText
+        android:hint="Enter the shares owned"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/kimLogo"
+        android:id="@+id/editText3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:hint="Enter the new stock sector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText4"
+        android:layout_above="@+id/editText5"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:hint="Enter the buy price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
         android:layout_above="@+id/editText2"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
