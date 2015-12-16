@@ -60,6 +60,7 @@ public class AccountPostActivity extends Activity {
     /**
      * LongRunningGetIO class contains the data necessary in order to do an IO task (GET, POST...).
      * Adapted from Lab09 code.
+     * Adapted from TeamF
      */
     private class LongRunningPostIO extends AsyncTask<Void, Void, String> {
 

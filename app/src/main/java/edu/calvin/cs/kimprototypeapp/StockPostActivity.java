@@ -36,7 +36,7 @@ public class StockPostActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_post);
+        setContentView(R.layout.activity_stock_post);
         postButton=(Button) findViewById(R.id.postbutton);
         tickerEnter=(EditText) findViewById(R.id.editText);
         sectorEnter=(EditText) findViewById(R.id.editText4);
