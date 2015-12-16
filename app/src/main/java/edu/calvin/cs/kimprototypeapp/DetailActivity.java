@@ -275,7 +275,7 @@ public class DetailActivity extends Activity {
       It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
             //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-            String PEOPLE_URI = "http://153.106.116.65:9998/kimSQL/stocksIds";
+            String PEOPLE_URI = "http://153.106.116.90:9998/kimSQL/stocksIds";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -344,7 +344,7 @@ public class DetailActivity extends Activity {
       It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
                 //I was having string comparison problems so currently this only returns the price of the stock with 270 shares owned
-                String PEOPLE_URI = "http://153.106.116.65:9998/kimSQL/stock/" + stockID;
+                String PEOPLE_URI = "http://153.106.116.90:9998/kimSQL/stock/" + stockID;
                 HttpGet httpGet = new HttpGet(PEOPLE_URI);
                 String text;
                 try {
@@ -415,6 +415,9 @@ public class DetailActivity extends Activity {
             return true;
         } else if (id == R.id.action_stocks){
             startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        } else if (id == R.id.action_adminTools){
+            startActivity(new Intent(this, AdminActivity.class));
             return true;
         }
 

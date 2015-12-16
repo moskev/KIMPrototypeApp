@@ -20,81 +20,73 @@
     <string name="editPortfolioText">Total Holdings = $1,201,936.67</string>
     <string name="portfolioPreview">This page will later have a graph and more info about the portfolio.</string>
     <string name="helpPreview">
+<b><i>Finding Stock Information for a specific stock:</i></b>\n You can use the Stocks feature of the KIM app to access the stocks in KIM\'s portfolio.\n\n
 
-You can use the menu bar option on the top right of your screen to find the Stock Pitch option. The Stock Pitch option will show you this week’s stock pitch for KIM.
-The detailed steps in this section show you how to open the stock pitch for KIM this week.\n\n
-1.	Open the KIM App\n
-2.	Put in your credentials and login into the app\n
-3.	Click the menu bar on the top right of your screen \n
-4.	Click “Stock Pitch”\n
-
-   \n\n
-You can use the Training Guide page of the KIM app to understand the activities carried out in KIM. \n
-
-Imagine you are a new KIM member, and you want to find out how stock pitches are prepared in KIM.\n
-        \n
 The detailed steps in this section show you how to:\n
 
-1. access the Training Guide;\n
+    <b>1. Access the Stocks:</b>\n
+           - Log in to the KIM app using your login credentials. You will end up on the KIM app home page.\n
+           - On the screen, locate the "Stocks" button below the KIM logo.\n
+    <b>2. Find the information you are looking for:</b>\n
+           - Click on the "Stocks" button.\n
+           - Scroll through the list of stocks, and click on the stock ticker you need information about.\n
+    <b>3. Exit the Stocks page:</b>\n
+           - After you are finished with viewing the stock information, go back to the top right corner of the screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Home”.\n\n
 
-2. find the information you are looking for;\n
+<b><i>Finding a Stock Pitch:</i></b>\nYou can use the Stock Pitch option of the KIM app to view this week’s stock pitch for KIM.\n\n
 
-3. exit the Training Guide.\n
+The detailed steps in this section show you how to:\n
 
-1.  Access the Training Guide:\n \n
-- Log in to the KIM app using your login credentials.\n
+    <b>1. Access the Stock Pitch:</b>\n
+           - Log in to the KIM app using your login credentials.\n
+           - Go to the top right corner of your screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Stock Pitch”. This will open the Stock Pitch page.\n
+    <b>2. Find the information you are looking for:</b>\n
+           - Click on the Google Drive link.\n
+           - Select the stock pitch you want to view.\n
+    <b>3. Exit the Stock Pitch page:</b>\n
+           - After you are finished with viewing the stock pitch, go back to the top right corner of the screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Home”.\n\n
 
-- Go to the top right corner of your screen to find the Menu bar.\n
+<b><i>Using the Training Guide:</i></b>\nYou can use the Training Guide page of the KIM app to understand the activities carried out in KIM.\n\n
 
-- Click on the Menu bar, and then select “Training Guide”.\n\n
+The detailed steps in this section show you how to:\n
 
-2.  Find the information you are looking for:\n
+    <b>1. Access the Training Guide:</b>\n
+           - Log in to the KIM app using your login credentials.\n
+           - Go to the top right corner of your screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Training Guide”. This will open the Training Guide page.\n
+    <b>2. Find the information you are looking for:</b>\n
+           - Click on the Google Drive link.\n
+           - Select the Training Guide.\n
+           - Scroll through to find the information you want.\n
+    <b>3. Exit the Training Guide page:</b>\n
+           - After you are finished with viewing the Training Guide, go back to the top right corner of the screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Home”.\n\n
 
-- Scroll through the Training Guide to find the section with the information you need.\n\n
+<b><i>Using the Admin Tools:</i></b>\nYou can use the Admin Tools feature of the KIM app if you are an administrator in the club.\n\n
+Imagine it is a new semester and you want to change the passwords of the user accounts.The detailed steps in this section show you how to:\n
 
-3.  Exit the Training Guide:\n
+    <b>1. Access the Admin Tools Feature:</b>\n
+           - Log in to the KIM app using your Administrator login credentials.\n
+           - Go to the top right corner of your screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Admin Tools”. This will open the Admin Tools Page.\n
+    <b>2. Add or Change that account’s password:</b>\n
+           - Type the new password in the “New Account Password” textbox.\n
+           - Press the “Add or change this account” button.\n
+           - Your changes have been added to the database.\n
+    <b>3. Exit the Admin Tools page:</b>\n
+           - After you are finished with using the Admin Tools, go back to the top right corner of the screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Home”.\n\n
 
-- After you are finished with using the Training Guide, go back to the top right corner of the
+ <b><i>Logging out:</i></b>\nFor security reasons, you will nedd to log out of the KIM app after using it.\n\n
 
-screen to find the Menu bar.\n
+The detailed steps in this section show you how to:\n
 
-- Click on the Menu bar, and then select “Home”.\n\n
-
-You can use the administrator feature of the KIM app to change the password of each account in
-
-the system.\n
-
-Imagine it is a new semester and you want to change the passwords of the user accounts. These
-
-steps will show you how to:\n\n
-
-1. select a specific account and\n
-
-2. change that account’s password.\n\n
-
-To select a specific account:\n
-
-1. Log in to the KIM app with an administrator account.\n
-
-2. Click on the menu button in the top right corner of the screen.\n
-
-3. Click on the “Admin Tools” button. This will open the Admin Tools Page.\n
-
-4. Click on the name of the account whose password you would like to change.\n\n
-
-To change that account’s password:\n
-
-5. Type the new password in the “New Password” textbox.\n
-
-6. Type the same password in the “Retype Password” textbox.
-\n
-7. Type the password of your administrator account in the “Admin Password” textbox.\n
-
-8. Press the “OK” button.\n
-
-9. If the passwords match and your admin password is valid, a message will appear on the
-
-screen telling you that it was a success. Press “OK”.\n
+    <b>1. Access the Log Out feature:</b>\n
+           - When you are logged in to the KIM app, go to the top right corner of your screen to find the Menu bar.\n
+           - Click on the Menu bar, and then select “Log Out”. This will log you out, and take you back to the login screen.\n\n
     </string>
     <string name="trainingPreview">Click on the following link for the training manual: </string>
     <string name="stockPreview">Click on the following link for KIM stock pitches: </string>

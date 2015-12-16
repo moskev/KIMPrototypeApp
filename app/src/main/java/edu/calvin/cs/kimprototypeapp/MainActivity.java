@@ -124,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
       asynchronous task to take the slow I/O off the main interface thread.
       It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
-            String PEOPLE_URI = "http://153.106.116.65:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://153.106.116.90:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -221,6 +221,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             return true;
         } else if (id == R.id.action_stocks){
             startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        } else if (id == R.id.action_adminTools){
+            startActivity(new Intent(this, AdminActivity.class));
             return true;
         } else if (id == R.id.action_adminTools){
             startActivity(new Intent(this, AdminActivity.class));

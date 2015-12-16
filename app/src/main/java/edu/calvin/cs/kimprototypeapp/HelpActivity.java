@@ -68,6 +68,9 @@ public class HelpActivity extends Activity {
         } else if (id == R.id.action_stocks){
             startActivity(new Intent(this, HomeActivity.class));
             return true;
+        } else if (id == R.id.action_adminTools){
+            startActivity(new Intent(this, AdminActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item); //added git
