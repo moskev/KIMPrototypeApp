@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
         //allows it to jump right to the next screen because the server is not working, comment these 2 lines out when server is running
-        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        //startActivity(home);
+        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        startActivity(home);
 
 
         //provides internet permissions
@@ -124,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
       asynchronous task to take the slow I/O off the main interface thread.
       It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
-            String PEOPLE_URI = "http://153.106.116.90:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://153.106.116.65:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
