@@ -17,9 +17,8 @@ import android.widget.ImageView;
 public class AdminActivity extends Activity {
 
     //declares screen components
-    private Button individualStockButton;
-    private Button stockPitchButton;
-    private Button trainingGuideButton;
+    private Button newAccountButton;
+    private Button newStockButton;
     private ImageView kimLogo;
 
 
@@ -31,19 +30,18 @@ public class AdminActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         //initialize view
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_portfolio);
+        setContentView(R.layout.activity_admin);
 
         //initializes screen components
-        individualStockButton =(Button)  findViewById(R.id.individualStockButton);
-        stockPitchButton =(Button)  findViewById(R.id.stockPitch);
-        trainingGuideButton =(Button)  findViewById(R.id.trainingGuide);
+        newAccountButton =(Button)  findViewById(R.id.newAccount);
+        newStockButton =(Button)  findViewById(R.id.newStocks);
         kimLogo = (ImageView) findViewById(R.id.kimLogo);
         kimLogo.setImageResource(R.mipmap.knight_investment_management);
 
-        /* onClick listener for individualStock button bringing to HomeActivity
+        /* onClick listener for newAccount button bringing to HomeActivity
          * param onClickListener initialize and declare new onClickListener in the parameter
          */
-        individualStockButton.setOnClickListener(new View.OnClickListener() {
+        newAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //create and start new Intent
@@ -52,29 +50,18 @@ public class AdminActivity extends Activity {
             }
         });
 
-        /* onClick listener for stockPitch button bringing to HomeActivity
+        /* onClick listener for newStock button bringing to HomeActivity
          * param onClickListener initialize and declare new onClickListener in the parameter
          */
-        stockPitchButton.setOnClickListener(new View.OnClickListener() {
+        newStockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //create and start new Intent
-                Intent home = new Intent(AdminActivity.this, StockPitchActivity.class);
+                Intent home = new Intent(AdminActivity.this, StockPostActivity.class);
                 startActivity(home);
             }
         });
 
-        /* onClick listener for stockPitch button bringing to HomeActivity
-         * param onClickListener initialize and declare new onClickListener in the parameter
-         */
-        trainingGuideButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //create and start new Intent
-                Intent home = new Intent(AdminActivity.this, TrainingActivity.class);
-                startActivity(home);
-            }
-        });
     }
 
 
