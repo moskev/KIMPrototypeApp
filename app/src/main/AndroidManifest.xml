@@ -25,6 +25,10 @@
             android:label="Stock Info" >
         </activity>
         <activity
+            android:name=".AdminActivity"
+            android:label="Administrator Tools" >
+        </activity>
+        <activity
             android:name=".SettingsActivity"
             android:label="SettingsActivity"
             android:parentActivityName=".MainActivity" >

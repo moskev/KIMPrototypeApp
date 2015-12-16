@@ -15,8 +15,11 @@ import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
@@ -49,12 +52,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
 
-
         //allows it to jump right to the next screen because the server is not working, comment these 2 lines out when server is running
-        Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
-        startActivity(home);
-
-
+        //Intent home = new Intent(MainActivity.this, PortfolioActivity.class);
+        //startActivity(home);
 
 
         //provides internet permissions
@@ -87,8 +87,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         //execute password check in AsyncTask
         new LongRunningGetIO().execute();
     }
-
-
 
     /* LongRunningGetIO is an AsyncTask that allows user to go on to next screen is username and password is correct
      */
@@ -126,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
       asynchronous task to take the slow I/O off the main interface thread.
       It uses 153.106.82.187 (the ipv4 address of the computer) to access localhost
      */
-            String PEOPLE_URI = "http://153.106.82.187:9998/kimSQL/accounts";
+            String PEOPLE_URI = "http://153.106.116.65:9998/kimSQL/accounts";
             HttpGet httpGet = new HttpGet(PEOPLE_URI);
             String text;
             try {
@@ -223,6 +221,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             return true;
         } else if (id == R.id.action_stocks){
             startActivity(new Intent(this, HomeActivity.class));
+            return true;
+        } else if (id == R.id.action_adminTools){
+            startActivity(new Intent(this, AdminActivity.class));
             return true;
         }
 

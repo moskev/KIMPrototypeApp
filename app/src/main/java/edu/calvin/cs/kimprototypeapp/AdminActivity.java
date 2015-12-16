@@ -1,9 +1,24 @@
 package edu.calvin.cs.kimprototypeapp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import java.io.IOException;
 
 /* @author Lydia Cupery, Beka Agava, Andrew Groenewold, Moses Mangunrahardja
  * AdminActivity will allow administrators to create accounts, this function is not yet implemented
@@ -12,6 +27,9 @@ import android.view.MenuItem;
 
 public class AdminActivity extends Activity {
 
+    private Button loginButton;
+    private EditText usernameEnter, passwordEnter;
+
     /*  onCreate initializes the view
   * @param savedInstanceState receives view from parent (in this case none)
   */
@@ -19,6 +37,66 @@ public class AdminActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        loginButton=(Button) findViewById(R.id.loginbutton);
+        usernameEnter=(EditText) findViewById(R.id.editText2);
+        passwordEnter=(EditText) findViewById(R.id.editText);
+
+      /* onClick listener for individualStock button bringing to HomeActivity
+         * param onClickListener initialize and declare new onClickListener in the parameter
+         */
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //create and start new Intent
+
+            }
+        });
+    }
+
+    //URI for the POST method for adding new climbs to the database
+    private static String NEW_ACCOUNT_URI = "http://153.106.116.65:9998/kimSQL/accountPost";
+
+    /**
+     * LongRunningGetIO class contains the data necessary in order to do an IO task (GET, POST...).
+     * Adapted from Lab09 code.
+     */
+    private class LongRunningPostIO extends AsyncTask<Void, Void, String> {
+
+        String testUsername = usernameEnter.getText().toString();
+        String testPassword = passwordEnter.getText().toString();
+
+        /**
+         * This method issues the HTTP POST request.
+         * Adapted from Lab09 code.
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            HttpClient httpClient = new DefaultHttpClient();  //Create the HTTP Client
+            HttpContext localContext = new BasicHttpContext();
+            HttpPost httpPost = new HttpPost(NEW_ACCOUNT_URI);  //Create the POST
+
+            try {
+                //Get the data from the user
+                String input = testUsername + ":" + testPassword;
+                StringEntity data = new StringEntity(input);  //Create a StringEntity object to hold the input data
+
+                //Set the content type
+                data.setContentType("text/plain");
+
+                //Set the entity of the POST method
+                httpPost.setEntity(data);
+
+                // Execute HTTP Post Request
+                httpClient.execute(httpPost, localContext);
+
+            } catch (ClientProtocolException e) {
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            }
+            return "YAY";
+        }
+
     }
 
     /* onCreateOptionsMenu
